@@ -1,0 +1,59 @@
+/**
+ *
+ */
+package mywebapp.java.main.persistance.daoimpl;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import mywebapp.java.main.persistance.daointerface.IQuestionDAO;
+import mywebapp.java.main.persistance.object.QuestionDO;
+
+/**
+ * @author matthieu
+ *
+ */
+public class QuestionDAO implements IQuestionDAO {
+	final File monImage = new File(
+			"C:\\Users\\matthieu\\Documents\\workspaceLuna\\RestWebService\\WebContent\\monimage.jpg");
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * mywebapp.java.main.persistance.daointerface.IQuestionDAO#recupererQuestion
+	 * (int)
+	 */
+	@Override
+	public QuestionDO recupererQuestion(final int idQuestion, final int idSerie) {
+		final EntityManagerFactory emF = new Persistence()
+		.createEntityManagerFactory("my-pu");
+		final EntityManager em = emF.createEntityManager();
+		final StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder
+		.append("SELECT question.ID , question.ID_SERIE , question.ENONCE , question.IMAGE , question.REPONSE1 , question.REPONSE2 , question.QUESTION_DOUBLE , question.TEMPS ");
+		queryBuilder.append("FROM question WHERE question.ID = '" + idQuestion
+				+ "' AND question.ID_SERIE = '" + idSerie + "'");
+		final Query query = em.createNativeQuery(queryBuilder.toString());
+		final Object[] results = (Object[]) query.getSingleResult();
+		final QuestionDO question = new QuestionDO();
+		if (results != null && results.length != 0) {
+			question.setId(idQuestion);
+			question.setId_serie(idSerie);
+			question.setEnonce((String) results[2]);
+			 question.setTemps((int)results[7]);
+
+
+		}
+		return question;
+	}
+}
