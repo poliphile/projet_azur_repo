@@ -3,6 +3,8 @@
  */
 package mywebapp.java.main.persistance.daoimpl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,7 +30,7 @@ public class UtilisateurDAOImpl implements IUtilisateurDAO {
 			final String password) {
 
 		final EntityManagerFactory emF = new Persistence()
-		.createEntityManagerFactory("my-pu");
+				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
@@ -36,19 +38,18 @@ public class UtilisateurDAOImpl implements IUtilisateurDAO {
 		queryBuilder.append("WHERE util.LOGIN ='" + login
 				+ "' AND util.PASSWORD='" + password + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
-		final Object[] results = (Object[]) query.getSingleResult();
+		final List<Object[]> results = query.getResultList();
 		final UtilisateurDO utilisateur = new UtilisateurDO();
-		if (results != null && results.length != 0) {
-			utilisateur.setId((int) results[0]);
-			utilisateur.setNom((String) results[1]);
-			utilisateur.setPrenom((String) results[2]);
-			utilisateur.setLogin((String) results[3]);
-			utilisateur.setPassword((String) results[4]);
-			utilisateur.setDateNaiss((java.util.Date) results[5]);
+		for (Object[] o : results) {
+			utilisateur.setId((int) o[0]);
+			utilisateur.setNom((String) o[1]);
+			utilisateur.setPrenom((String) o[2]);
+			utilisateur.setLogin((String) o[3]);
+			utilisateur.setPassword((String) o[4]);
+			utilisateur.setDateNaiss((java.util.Date) o[5]);
 			// utilisateur.setIsAdmin((int) results[6]);
 		}
 
 		return utilisateur;
 	}
-
 }

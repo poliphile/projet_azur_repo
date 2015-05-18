@@ -75,7 +75,7 @@ public class SerieDAOImpl implements ISerieDAO {
 		final Query query = em.createNativeQuery(queryBuilder.toString());
 		query.executeUpdate();
 		em.getTransaction().commit();
-		return "success";
+		return "SUCCESS";
 	}
 
 	// TODO merge
@@ -85,28 +85,28 @@ public class SerieDAOImpl implements ISerieDAO {
 			final int numQuestion) {
 
 		final EntityManagerFactory emf = new Persistence()
-		.createEntityManagerFactory("my-pu");
+				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emf.createEntityManager();
 
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
-		.append("SELECT question.ID, question.ID_SERIE, question.NUM_QUESTION, question.ENONCE, question.IMAGE, question.REPONSE1, question.REPONSE2, question.QUESTION_DOUBLE, question.TEMPS FROM QUESTION question WHERE question.NUM_QUESTION = '"
-				+ numQuestion
-				+ "' and question.ID_SERIE = '"
-				+ numSerie + "'");
+				.append("SELECT question.ID, question.ID_SERIE, question.NUM_QUESTION, question.ENONCE, question.IMAGE, question.REPONSE1, question.REPONSE2, question.QUESTION_DOUBLE, question.TEMPS FROM QUESTION question WHERE question.NUM_QUESTION = '"
+						+ numQuestion
+						+ "' and question.ID_SERIE = '"
+						+ numSerie + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
-		final Object[] results = (Object[]) query.getSingleResult();
+		final List<Object[]> results = query.getResultList();
 		final QuestionDO questionDO = new QuestionDO();
-		if (results != null && results.length != 0) {
-			questionDO.setId((int) results[0]);
-			questionDO.setId_serie((int) results[1]);
-			questionDO.setNum_question((int) results[2]);
-			questionDO.setEnonce((String) results[3]);
-			questionDO.setImage((byte[]) results[4]);
-//			questionDO.setReponse1((String) results[5]);
-//			questionDO.setReponse2((String) results[6]);
-		//	questionDO.setQuestion_double((int) results[7]);
-			questionDO.setTemps((int) results[8]);
+		for (final Object[] o : results) {
+			questionDO.setId((int) o[0]);
+			questionDO.setId_serie((int) o[1]);
+			questionDO.setNum_question(Integer.toString(((int) o[2])));
+			questionDO.setEnonce((String) o[3]);
+			questionDO.setImage((byte[]) o[4]);
+			// questionDO.setReponse1((String) results[5]);
+			// questionDO.setReponse2((String) results[6]);
+			// questionDO.setQuestion_double((int) results[7]);
+			questionDO.setTemps(Integer.toString((int) o[8]));
 		}
 		return questionDO;
 	}

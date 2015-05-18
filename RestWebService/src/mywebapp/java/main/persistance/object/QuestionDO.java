@@ -17,13 +17,13 @@ public class QuestionDO {
 	@GeneratedValue
 	private int id;
 	private int id_serie;
-	private int num_question;
+	private String num_question;
 	private String enonce;
 	private byte[] image;
 	private char reponse1;
 	private char reponse2;
 	private int question_double;
-	private int temps;
+	private String temps;
 
 	/**
 	 * @return the id
@@ -109,21 +109,6 @@ public class QuestionDO {
 	}
 
 	/**
-	 * @return the temps
-	 */
-	public int getTemps() {
-		return temps;
-	}
-
-	/**
-	 * @param temps
-	 *            the temps to set
-	 */
-	public void setTemps(final int temps) {
-		this.temps = temps;
-	}
-
-	/**
 	 * @return the image
 	 */
 	public byte[] getImage() {
@@ -145,11 +130,38 @@ public class QuestionDO {
 		return reponse1;
 	}
 
-	public int getNum_question() {
+	public String getBitArrayString() {
+		return new String(
+				new org.apache.commons.codec.binary.Base64().encode(this.image));
+	}
+
+	/**
+	 * @return the num_question
+	 */
+	public String getNum_question() {
 		return num_question;
 	}
 
-	public void setNum_question(final int num_question) {
+	/**
+	 * @param num_question
+	 *            the num_question to set
+	 */
+	public void setNum_question(final String num_question) {
 		this.num_question = num_question;
+	}
+
+	/**
+	 * @return the temps
+	 */
+	public String getTemps() {
+		return temps;
+	}
+
+	/**
+	 * @param temps
+	 *            the temps to set
+	 */
+	public void setTemps(final String temps) {
+		this.temps = temps;
 	}
 }

@@ -91,7 +91,8 @@ public class SerieRessource {
 		final QuestionDO result = dao.recupererQuestionDO(numeroSerie,
 				numeroQuestion);
 		if (result != null) {
-			final int questionSuivante = result.getNum_question() + 1;
+			final int questionSuivante = Integer.parseInt(result
+					.getNum_question()) + 1;
 			this.question.setNumeroQuestion(questionSuivante);
 		}
 

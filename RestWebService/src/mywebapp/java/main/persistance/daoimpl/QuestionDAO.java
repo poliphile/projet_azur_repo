@@ -50,7 +50,7 @@ public class QuestionDAO implements IQuestionDAO {
 			question.setId(idQuestion);
 			question.setId_serie(idSerie);
 			question.setEnonce((String) results[2]);
-			 question.setTemps((int)results[7]);
+			 question.setTemps(Integer.toString((int)results[7]));
 
 
 		}
