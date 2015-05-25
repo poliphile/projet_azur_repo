@@ -24,6 +24,11 @@ public class QuestionDO {
 	private char reponse2;
 	private int question_double;
 	private String temps;
+	private String enonce2;
+	private String reponseA;
+	private String reponseB;
+	private String reponseC;
+	private String reponseD;
 
 	/**
 	 * @return the id
@@ -163,5 +168,80 @@ public class QuestionDO {
 	 */
 	public void setTemps(final String temps) {
 		this.temps = temps;
+	}
+
+	/**
+	 * @return the enonce2
+	 */
+	public String getEnonce2() {
+		return enonce2;
+	}
+
+	/**
+	 * @param enonce2
+	 *            the enonce2 to set
+	 */
+	public void setEnonce2(final String enonce2) {
+		this.enonce2 = enonce2;
+	}
+
+	/**
+	 * @return the reponseA
+	 */
+	public String getReponseA() {
+		return reponseA;
+	}
+
+	/**
+	 * @param reponseA
+	 *            the reponseA to set
+	 */
+	public void setReponseA(final String reponseA) {
+		this.reponseA = reponseA;
+	}
+
+	/**
+	 * @return the reponseB
+	 */
+	public String getReponseB() {
+		return reponseB;
+	}
+
+	/**
+	 * @param reponseB
+	 *            the reponseB to set
+	 */
+	public void setReponseB(final String reponseB) {
+		this.reponseB = reponseB;
+	}
+
+	/**
+	 * @return the reponseC
+	 */
+	public String getReponseC() {
+		return reponseC;
+	}
+
+	/**
+	 * @param reponseC
+	 *            the reponseC to set
+	 */
+	public void setReponseC(final String reponseC) {
+		this.reponseC = reponseC;
+	}
+
+	/**
+	 * @return the reponseD
+	 */
+	public String getReponseD() {
+		return reponseD;
+	}
+
+	/**
+	 * @param reponseD
+	 *            the reponseD to set
+	 */
+	public void setReponseD(final String reponseD) {
+		this.reponseD = reponseD;
 	}
 }

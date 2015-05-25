@@ -28,6 +28,7 @@ public class AfficherQuestionSuivanteAction {
 
 			context.getSession().put("Question", questionSuivante);
 			context.getSession().put("time", questionSuivante.getTemps());
+			context.getSession().put("double", questionSuivante.isQuestion_double());
 		}
 
 		return "SUCCESS";

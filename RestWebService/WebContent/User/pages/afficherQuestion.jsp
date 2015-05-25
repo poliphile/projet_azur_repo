@@ -32,9 +32,27 @@
  
 <body onload="startTimer()">
  <div id="sessionTimer"></div>
- <div  class="imageContainer">
-<img alt="" src="data:image/jpg;base64,<%= ((QuestionDO)ActionContext.getContext().getSession().get("Question")).getBitArrayString()%>"/>
+ <div style="float: left;" >
+<img alt="" src="data:image/jpg;base64,<%= ((QuestionDO)ActionContext.getContext().getSession().get("Question")).getBitArrayString()%>" width="700" height="700"/>
 </div>
+<div id="enonce1" style="float: right: ;">
+ <s:if test="%{#session.double==1}">
+<p><h3><%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
+<p>A : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
+<p>B : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
+<p><h3><%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getEnonce2() %></h3></p>
+<p>C : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
+<p>D : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
+</s:if>
+<s:if test="%{#session.double!=1}">
+<p><h3><%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
+<p>A : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
+<p>B : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
+<p>C : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
+<p>D : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
+ </s:if> 
+</div>
+
 <div style="display: none;">
 <s:form action="AfficherQuestionSuivanteAction" id="formulaireQuestionSuivante">
 <s:submit id="submitButton"/>

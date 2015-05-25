@@ -16,6 +16,7 @@ public class AfficherQuestionAction {
 
 	private SerieService serieService = SerieService.getInstance();
 
+
 	public String execute() {
 		final String numSerie = serieService.recupererSerieEnCours();
 		final String resut = serieService.closeConnexion(numSerie);
@@ -23,7 +24,9 @@ public class AfficherQuestionAction {
 		ActionContext context = ActionContext.getContext();
 		context.getSession().put("Question", question);
 		context.getSession().put("time", question.getTemps());
+		context.getSession().put("double", question.isQuestion_double());
 		return "SUCCESS";
 	}
+
 
 }
