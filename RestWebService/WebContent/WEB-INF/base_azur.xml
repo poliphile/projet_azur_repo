@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.1.14
+- http://www.phpmyadmin.net
+-
+- Client :  127.0.0.1
+- Généré le :  Mar 26 Mai 2015 à 15:31
+- Version du serveur :  5.6.17
+- Version de PHP :  5.5.12
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="base_azur" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="question">
+                CREATE TABLE `question` (
+                  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de la question',
+                  `ID_SERIE` int(11) NOT NULL COMMENT 'numero de la serie',
+                  `NUM_QUESTION` int(11) DEFAULT NULL,
+                  `ENONCE` varchar(5000) DEFAULT NULL COMMENT 'Enonce de la question',
+                  `IMAGE` longblob COMMENT 'Image associe à la question',
+                  `REPONSE1` varchar(1) DEFAULT NULL COMMENT 'Reponse 1',
+                  `REPONSE2` varchar(1) DEFAULT NULL,
+                  `QUESTION_DOUBLE` int(1) DEFAULT '0' COMMENT 'Determine si la question est double',
+                  `TEMPS` int(11) DEFAULT NULL COMMENT 'temps de la question',
+                  `ENONCE2` varchar(2000) DEFAULT NULL COMMENT 'Enonce de la deuxième partie de la question',
+                  `REPONSEA` varchar(300) DEFAULT NULL COMMENT 'Texte de la réponse A',
+                  `REPONSEB` varchar(300) DEFAULT NULL COMMENT 'Texte de la réponse B',
+                  `REPONSEC` varchar(300) DEFAULT NULL COMMENT 'Texte de la réponse C',
+                  `REPONSED` varchar(300) DEFAULT NULL COMMENT 'Texte de la réponse D',
+                  PRIMARY KEY (`ID`),
+                  KEY `NUM_SERIE` (`ID_SERIE`),
+                  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`ID_SERIE`) REFERENCES `serie` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="serie">
+                CREATE TABLE `serie` (
+                  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',
+                  `NUM_SERIE` int(11) DEFAULT NULL COMMENT 'Numéro de la série',
+                  `SCORE_MOYEN` int(11) DEFAULT NULL COMMENT 'Score moyen sur la serie',
+                  `DATE_CREATION` date NOT NULL COMMENT 'Date de creation de la serie',
+                  `DATE_PASSAGE` date DEFAULT NULL COMMENT 'Date de dernier passage de la serie',
+                  `IS_ACTIVE` tinyint(1) DEFAULT NULL COMMENT 'determine si la serie accepte des connexions',
+                  PRIMARY KEY (`ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="utilisateur">
+                CREATE TABLE `utilisateur` (
+                  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',
+                  `NOM` varchar(250) DEFAULT NULL COMMENT 'Nom de l''utilisateur',
+                  `PRENOM` varchar(250) DEFAULT NULL COMMENT 'Prenom de l''utilisateur',
+                  `LOGIN` varchar(50) DEFAULT NULL COMMENT 'Login de l''utilisateur',
+                  `PASSWORD` varchar(50) DEFAULT NULL COMMENT 'pass de l''utilisateur',
+                  `DATE_NAISS` date DEFAULT NULL COMMENT 'Date de naissance de l''utilisateur',
+                  `IS_ADMIN` tinyint(1) DEFAULT NULL COMMENT 'Determine si l''utilisateur est admin',
+                  PRIMARY KEY (`ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="utilisateur_serie">
+                CREATE TABLE `utilisateur_serie` (
+                  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de la jointure',
+                  `ID_UTILISATEUR` int(11) NOT NULL COMMENT 'ID de l''utilisateur',
+                  `ID_SERIE` int(11) NOT NULL COMMENT 'ID de la serie',
+                  `SCORE` int(11) NOT NULL COMMENT 'Score realise sur la serie',
+                  PRIMARY KEY (`ID`),
+                  KEY `ID_UTILISATEUR` (`ID_UTILISATEUR`),
+                  KEY `ID_UTILISATEUR_2` (`ID_UTILISATEUR`),
+                  KEY `ID_SERIE` (`ID_SERIE`),
+                  CONSTRAINT `utilisateur_serie_ibfk_1` FOREIGN KEY (`ID_UTILISATEUR`) REFERENCES `utilisateur` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                  CONSTRAINT `utilisateur_serie_ibfk_2` FOREIGN KEY (`ID_SERIE`) REFERENCES `serie` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Base de données :  'base_azur'
+    -->
+    <database name="base_azur">
+        <!-- Table question -->
+        <table name="question">
+            <column name="ID">1</column>
+            <column name="ID_SERIE">1</column>
+            <column name="NUM_QUESTION">1</column>
+            <column name="ENONCE">Première question</column>
+            <column name="IMAGE"></column>
+            <column name="REPONSE1">A</column>
+            <column name="REPONSE2">NULL</column>
+            <column name="QUESTION_DOUBLE">0</column>
+            <column name="TEMPS">10</column>
+            <column name="ENONCE2">NULL</column>
+            <column name="REPONSEA">Réponse A</column>
+            <column name="REPONSEB">Réponse B</column>
+            <column name="REPONSEC">Réponse C</column>
+            <column name="REPONSED">Réponse D</column>
+        </table>
+        <table name="question">
+            <column name="ID">2</column>
+            <column name="ID_SERIE">1</column>
+            <column name="NUM_QUESTION">2</column>
+            <column name="ENONCE">Deuxième Question</column>
+            <column name="IMAGE"></column>
+            <column name="REPONSE1">A</column>
+            <column name="REPONSE2">B</column>
+            <column name="QUESTION_DOUBLE">1</column>
+            <column name="TEMPS">5</column>
+            <column name="ENONCE2">Deuxième partie de la question</column>
+            <column name="REPONSEA">Réponse A</column>
+            <column name="REPONSEB">Réponse B</column>
+            <column name="REPONSEC">Réponse C</column>
+            <column name="REPONSED">Réponse D</column>
+        </table>
+        <table name="question">
+            <column name="ID">3</column>
+            <column name="ID_SERIE">1</column>
+            <column name="NUM_QUESTION">3</column>
+            <column name="ENONCE">Troisieme Question</column>
+            <column name="IMAGE"></column>
+            <column name="REPONSE1">A</column>
+            <column name="REPONSE2">NULL</column>
+            <column name="QUESTION_DOUBLE">0</column>
+            <column name="TEMPS">10</column>
+            <column name="ENONCE2">NULL</column>
+            <column name="REPONSEA">NULL</column>
+            <column name="REPONSEB">NULL</column>
+            <column name="REPONSEC">NULL</column>
+            <column name="REPONSED">NULL</column>
+        </table>
+        <table name="question">
+            <column name="ID">4</column>
+            <column name="ID_SERIE">1</column>
+            <column name="NUM_QUESTION">4</column>
+            <column name="ENONCE">Quatrième question</column>
+            <column name="IMAGE"></column>
+            <column name="REPONSE1">A</column>
+            <column name="REPONSE2">NULL</column>
+            <column name="QUESTION_DOUBLE">0</column>
+            <column name="TEMPS">10</column>
+            <column name="ENONCE2">NULL</column>
+            <column name="REPONSEA">NULL</column>
+            <column name="REPONSEB">NULL</column>
+            <column name="REPONSEC">NULL</column>
+            <column name="REPONSED">NULL</column>
+        </table>
+        <!-- Table serie -->
+        <table name="serie">
+            <column name="ID">1</column>
+            <column name="NUM_SERIE">1</column>
+            <column name="SCORE_MOYEN">NULL</column>
+            <column name="DATE_CREATION">2015-04-13</column>
+            <column name="DATE_PASSAGE">0000-00-00</column>
+            <column name="IS_ACTIVE">0</column>
+        </table>
+        <!-- Table utilisateur -->
+        <table name="utilisateur">
+            <column name="ID">1</column>
+            <column name="NOM">TOTO</column>
+            <column name="PRENOM">TITI</column>
+            <column name="LOGIN">TOTI</column>
+            <column name="PASSWORD">TOTO</column>
+            <column name="DATE_NAISS">2015-04-14</column>
+            <column name="IS_ADMIN">1</column>
+        </table>
+        <!-- Table utilisateur_serie -->
+    </database>
+</pma_xml_export>
