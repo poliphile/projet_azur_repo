@@ -3,28 +3,40 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
+	
 	<display-name>RestWebService</display-name>
 	
 	<servlet>
-		<servlet-name>Jersey REST Service</servlet-name>
-		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-		 <init-param>
-			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>mywebapp.java.main.presentation.resource</param-value>
-		</init-param> 
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+    	<servlet-name>Jersey REST Service</servlet-name>
+    	<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <!-- 	<init-param>
+      		<param-name>com.sun.jersey.config.feature.Redirect</param-name>
+      		<param-value>true</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>com.sun.jersey.config.property.JSPTemplatesBasePath</param-name>
+      		<param-value>/views/</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>com.sun.jersey.config.property.WebPageContentRegex</param-name>
+      		<param-value>/(images|css|jsp)/.*</param-value>
+    	</init-param> -->
+    	<init-param>
+  			<param-name>com.sun.jersey.config.property.packages</param-name>
+  			<param-value>mywebapp.java.main.presentation.resource</param-value>
+		</init-param>
+    	<load-on-startup>1</load-on-startup>
+  	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>Jersey REST Service</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Struts -->
-<filter>
+	<filter>
 		<filter-name>struts2</filter-name>
-		<filter-class>
-                org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
-                </filter-class>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>        
 	</filter>
  
 	<filter-mapping>
@@ -34,9 +46,9 @@
  
  
 <!-- page d'accueil de l'application -->
-<welcome-file-list>
-<welcome-file>User/pages/index.jsp</welcome-file>
-</welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>User/pages/index.jsp</welcome-file>
+	</welcome-file-list>
  
 
 </web-app>

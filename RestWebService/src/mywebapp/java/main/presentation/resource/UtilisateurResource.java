@@ -4,19 +4,19 @@
 package mywebapp.java.main.presentation.resource;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import mywebapp.java.main.persistance.daoimpl.UtilisateurDAOImpl;
 import mywebapp.java.main.persistance.object.UtilisateurDO;
 import mywebapp.java.main.presentation.pojo.Utilisateur;
+import mywebapp.java.main.services.LoginService;
 
 /**
  * @author Sekioa
@@ -55,17 +55,15 @@ public class UtilisateurResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Utilisateur postPerson(
-			final MultivaluedMap<String, String> userParams) {
+	public Utilisateur postPerson(@FormParam("user") final String user,
+			@FormParam("password") final String password) {
 
-		final String user = userParams.getFirst(USER);
-		final String password = userParams.getFirst(PASSWORD);
+		final LoginService utilisateurService = LoginService.getInstance();
 
 		System.out.println("Storing posted " + user + " " + password);
-		final UtilisateurDAOImpl dao = new UtilisateurDAOImpl();
-		final UtilisateurDO utilisateurDO = dao.recupererUtilisateurDO(user,
-				password);
-		if (utilisateurDO != null) {
+		final UtilisateurDO utilisateurDO = utilisateurService.seConnecter(
+				user, password);
+		if (utilisateurDO.getLogin() != null) {
 			this.user.setUser(utilisateurDO.getLogin());
 			this.user.setPassword(utilisateurDO.getPassword());
 			if (utilisateurDO.getPassword().equals(password)) {
@@ -73,7 +71,7 @@ public class UtilisateurResource {
 			}
 		}
 		System.out.println("user info: " + this.user.getUser() + " "
-				+ this.user.getPassword());
+				+ this.user.getPassword() + this.user.getIsConnect());
 
 		return this.user;
 

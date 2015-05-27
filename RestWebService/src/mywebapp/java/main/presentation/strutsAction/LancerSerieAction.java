@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mywebapp.java.main.presentation.strutsAction;
 
@@ -14,20 +14,20 @@ import com.opensymphony.xwork2.ActionContext;
 public class LancerSerieAction {
 
 	/**
-	 * 
+	 *
 	 */
 	private String numserie;
 	/**
-	 * 
+	 *
 	 */
 	private String tempsDepart;
 
-	private SerieService serieService = SerieService.getInstance();
+	private final SerieService serieService = SerieService.getInstance();
 
 	public String execute() {
 		final int numeroSerie = Integer.parseInt(numserie);
 		final String result = serieService.lancerSerie(numeroSerie);
-		ActionContext context = ActionContext.getContext();
+		final ActionContext context = ActionContext.getContext();
 		context.getSession().put("time", tempsDepart);
 		return "SUCCESS";
 	}

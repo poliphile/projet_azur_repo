@@ -1,2 +1,5 @@
 /bin/
 /target/
+/pom.xml
+/.classpath
+/.settings/

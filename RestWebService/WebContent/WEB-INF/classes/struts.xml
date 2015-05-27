@@ -3,7 +3,7 @@
 "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-
+	<constant name="struts.action.excludePattern" value="/rest/.*" />
 	<package name="user" namespace="/User" extends="struts-default">
 		<action name="Login">
 			<result>pages/index.jsp</result>
@@ -13,17 +13,17 @@
 			<result name="SUCCESS">pages/accueil.jsp</result>
 			<result name="FAIL">pages/index.jsp</result>
 		</action>
-		
+
 		<action name="LancerSerieAction"
 			class="mywebapp.java.main.presentation.strutsAction.LancerSerieAction">
 			<result name="SUCCESS">pages/timerLancementSerie.jsp</result>
 		</action>
-		
+
 		<action name="AfficherQuestionAction"
 			class="mywebapp.java.main.presentation.strutsAction.AfficherQuestionAction">
 			<result name="SUCCESS">pages/afficherQuestion.jsp</result>
 		</action>
-		
+
 		<action name="AfficherQuestionSuivanteAction"
 			class="mywebapp.java.main.presentation.strutsAction.AfficherQuestionSuivanteAction">
 			<result name="SUCCESS">pages/afficherQuestion.jsp</result>
