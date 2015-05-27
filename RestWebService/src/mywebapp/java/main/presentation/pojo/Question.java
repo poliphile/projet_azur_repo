@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Question {
 	private int numeroQuestion;
+	private String temps = "";
 
-	// TODO : merge
 	public Question() {
 		numeroQuestion = 0;
 	}
@@ -35,6 +35,21 @@ public class Question {
 	 */
 	public void setNumeroQuestion(final int numeroQuestion) {
 		this.numeroQuestion = numeroQuestion;
+	}
+
+	/**
+	 * @return the temps
+	 */
+	public String getTemps() {
+		return temps;
+	}
+
+	/**
+	 * @param temps
+	 *            the temps to set
+	 */
+	public void setTemps(final String temps) {
+		this.temps = temps;
 	}
 
 }
