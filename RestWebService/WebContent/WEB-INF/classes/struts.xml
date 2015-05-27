@@ -10,7 +10,7 @@
 		</action>
 		<action name="LoginAction"
 			class="mywebapp.java.main.presentation.strutsAction.LoginAction">
-			<result name="SUCCESS">pages/accueil.jsp</result>
+			<result name="SUCCESS">pages/menu.jsp</result>
 			<result name="FAIL">pages/index.jsp</result>
 		</action>
 		
@@ -27,6 +27,18 @@
 		<action name="AfficherQuestionSuivanteAction"
 			class="mywebapp.java.main.presentation.strutsAction.AfficherQuestionSuivanteAction">
 			<result name="SUCCESS">pages/afficherQuestion.jsp</result>
+		</action>
+		
+		<action name="AfficherLancerSerie">
+		 <result>pages/accueil.jsp</result>
+		</action>
+		
+		<action name="AjoutSerie">
+		<result>pages/ajoutSerie.jsp</result>
+		</action>
+		
+		<action name="AjoutQuestionAction" class="mywebapp.java.main.presentation.strutsAction.AjoutQuestionAction">
+		<result name="SUCCESS">pages/ajoutSerie.jsp</result>
 		</action>
 	</package>
 

@@ -41,6 +41,10 @@ public class SerieService {
 		return serieDAO.recupererQuestionDO(numeroSerie, numeroQuestion);
 	}
 
+	public String ajouterQuestion(final QuestionDO question) {
+		return serieDAO.ajoutQuestion(question);
+	}
+
 	public static SerieService getInstance() {
 		if (instance == null) {
 			return new SerieService();

@@ -23,4 +23,6 @@ public interface ISerieDAO {
 	public String repondreQuestion(final String reponse1,
 			final String numeroSerie, final int numeroQuestion);
 
+	public String ajoutQuestion(final QuestionDO questionToADD);
+
 }

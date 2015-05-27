@@ -3,6 +3,7 @@
  */
 package mywebapp.java.main.persistance.daoimpl;
 
+import java.sql.Blob;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,7 +14,13 @@ import javax.persistence.Query;
 import mywebapp.java.main.persistance.daointerface.ISerieDAO;
 import mywebapp.java.main.persistance.object.QuestionDO;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @author matthieu
@@ -21,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class SerieDAOImpl implements ISerieDAO {
 
+	final EntityManagerFactory emF = new Persistence()
+	.createEntityManagerFactory("my-pu");
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -30,8 +39,6 @@ public class SerieDAOImpl implements ISerieDAO {
 	@Override
 	@Transactional
 	public String lancerSerie(final int numeroSerie) {
-		final EntityManagerFactory emF = new Persistence()
-				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 		em.getTransaction().begin();
 		final StringBuilder queryBuilder = new StringBuilder();
@@ -47,8 +54,6 @@ public class SerieDAOImpl implements ISerieDAO {
 
 	@Override
 	public String recupererSerieEnCours() {
-		final EntityManagerFactory emF = new Persistence()
-				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
@@ -64,8 +69,6 @@ public class SerieDAOImpl implements ISerieDAO {
 	@Override
 	@Transactional
 	public String closeConnexion(final String numeroSerie) {
-		final EntityManagerFactory emF = new Persistence()
-				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 		em.getTransaction().begin();
 		final StringBuilder queryBuilder = new StringBuilder();
@@ -84,9 +87,7 @@ public class SerieDAOImpl implements ISerieDAO {
 	public QuestionDO recupererQuestionDO(final String numSerie,
 			final int numQuestion) {
 
-		final EntityManagerFactory emf = new Persistence()
-				.createEntityManagerFactory("my-pu");
-		final EntityManager em = emf.createEntityManager();
+		final EntityManager em = emF.createEntityManager();
 
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
@@ -119,8 +120,6 @@ public class SerieDAOImpl implements ISerieDAO {
 	@Override
 	public String repondreQuestion(final String reponse1,
 			final String numeroSerie, final int numeroQuestion) {
-		final EntityManagerFactory emF = new Persistence()
-				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 		em.getTransaction().begin();
 		final StringBuilder queryBuilder = new StringBuilder();
@@ -129,6 +128,26 @@ public class SerieDAOImpl implements ISerieDAO {
 				+ "' AND question.NUM_QUESTION = '" + numeroQuestion + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
 		query.executeUpdate();
+		em.getTransaction().commit();
+		return "success";
+	}
+
+	@Override
+	public String ajoutQuestion(QuestionDO questionToADD) {
+		
+		final EntityManager em = emF.createEntityManager();
+		em.getTransaction().begin();
+//		final StringBuilder queryBuilder = new StringBuilder();
+//		queryBuilder
+//				.append("INSERT INTO question VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+//
+//		final Query query = em.createNativeQuery(queryBuilder.toString());
+//		Blob blob = Hibernate.getLobCreator(em.);
+//		query.setParameter(2, 2);
+//		query.setParameter(5, questionToADD.getImage());
+//
+//		query.executeUpdate();
+		em.persist(questionToADD);
 		em.getTransaction().commit();
 		return "success";
 	}
