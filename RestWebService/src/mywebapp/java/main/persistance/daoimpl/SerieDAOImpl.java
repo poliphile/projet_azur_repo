@@ -101,13 +101,13 @@ public class SerieDAOImpl implements ISerieDAO {
 		for (final Object[] o : results) {
 			questionDO.setId((int) o[0]);
 			questionDO.setId_serie((int) o[1]);
-			questionDO.setNum_question(Integer.toString(((int) o[2])));
+			questionDO.setNum_question((String) o[2]);
 			questionDO.setEnonce((String) o[3]);
 			questionDO.setImage((byte[]) o[4]);
 			// questionDO.setReponse1((String) results[5]);
 			// questionDO.setReponse2((String) results[6]);
 			questionDO.setQuestion_double((int) o[7]);
-			questionDO.setTemps(Integer.toString((int) o[8]));
+			questionDO.setTemps((String) o[8]);
 			questionDO.setEnonce2((String) o[9]);
 			questionDO.setReponseA((String) o[10]);
 			questionDO.setReponseB((String) o[11]);
@@ -137,16 +137,6 @@ public class SerieDAOImpl implements ISerieDAO {
 		
 		final EntityManager em = emF.createEntityManager();
 		em.getTransaction().begin();
-//		final StringBuilder queryBuilder = new StringBuilder();
-//		queryBuilder
-//				.append("INSERT INTO question VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-//
-//		final Query query = em.createNativeQuery(queryBuilder.toString());
-//		Blob blob = Hibernate.getLobCreator(em.);
-//		query.setParameter(2, 2);
-//		query.setParameter(5, questionToADD.getImage());
-//
-//		query.executeUpdate();
 		em.persist(questionToADD);
 		em.getTransaction().commit();
 		return "success";
