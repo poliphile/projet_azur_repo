@@ -32,7 +32,6 @@ public class QuestionDO {
 	private String reponseB;
 	private String reponseC;
 	private String reponseD;
-	private int is_ready;
 
 	/**
 	 * @return the id
@@ -218,7 +217,7 @@ public class QuestionDO {
 	public void setReponseD(final String reponseD) {
 		this.reponseD = reponseD;
 	}
-	
+
 	/**
 	 * @return the reponse1
 	 */
@@ -230,7 +229,7 @@ public class QuestionDO {
 	 * @param reponse1
 	 *            the reponse1 to set
 	 */
-	public void setReponse1(String reponse1) {
+	public void setReponse1(final String reponse1) {
 		this.reponse1 = reponse1;
 	}
 
@@ -245,30 +244,7 @@ public class QuestionDO {
 	 * @param reponse2
 	 *            the reponse2 to set
 	 */
-	public void setReponse2(String reponse2) {
+	public void setReponse2(final String reponse2) {
 		this.reponse2 = reponse2;
 	}
-
-	/**
-	 * @return the is_ready
-	 */
-	public int getIs_ready() {
-		return is_ready;
-	}
-
-	/**
-	 * @param is_ready
-	 *            the is_ready to set
-	 */
-	public void setIs_ready(final int is_ready) {
-		this.is_ready = is_ready;
-	}
-
-	/**
-	 * @return the question_double
-	 */
-	public int getQuestion_double() {
-		return question_double;
-	}
-	
 }
