@@ -32,6 +32,8 @@ public class QuestionDO {
 	private String reponseB;
 	private String reponseC;
 	private String reponseD;
+	@Column(name = "IS_READY")
+	private int isReady;
 
 	/**
 	 * @return the id
@@ -246,5 +248,27 @@ public class QuestionDO {
 	 */
 	public void setReponse2(final String reponse2) {
 		this.reponse2 = reponse2;
+	}
+
+	/**
+	 * @return the question_double
+	 */
+	public int getQuestion_double() {
+		return question_double;
+	}
+
+	/**
+	 * @return the isReady
+	 */
+	public int getIsReady() {
+		return isReady;
+	}
+
+	/**
+	 * @param isReady
+	 *            the isReady to set
+	 */
+	public void setIsReady(final int isReady) {
+		this.isReady = isReady;
 	}
 }

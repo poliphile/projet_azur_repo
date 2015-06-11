@@ -4,6 +4,7 @@
 package mywebapp.java.main.persistance.daointerface;
 
 import mywebapp.java.main.persistance.object.QuestionDO;
+import mywebapp.java.main.persistance.object.SerieDO;
 
 /**
  * @author matthieu
@@ -13,7 +14,7 @@ public interface ISerieDAO {
 
 	public String lancerSerie(final int numeroSerie);
 
-	public String recupererSerieEnCours();
+	public SerieDO recupererSerieEnCours();
 
 	public String closeConnexion(final String numeroSerie);
 

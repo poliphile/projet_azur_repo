@@ -9,23 +9,23 @@
 			<result>pages/index.jsp</result>
 		</action>
 		<action name="LoginAction"
-			class="mywebapp.java.main.presentation.strutsAction.LoginAction">
+			class="mywebapp.java.main.presentation.utilisateur.action.LoginAction">
 			<result name="SUCCESS">pages/menu.jsp</result>
 			<result name="FAIL">pages/index.jsp</result>
 		</action>
 
 		<action name="LancerSerieAction"
-			class="mywebapp.java.main.presentation.strutsAction.LancerSerieAction">
+			class="mywebapp.java.main.presentation.serie.action.LancerSerieAction">
 			<result name="SUCCESS">pages/timerLancementSerie.jsp</result>
 		</action>
 
 		<action name="AfficherQuestionAction"
-			class="mywebapp.java.main.presentation.strutsAction.AfficherQuestionAction">
+			class="mywebapp.java.main.presentation.serie.action.AfficherQuestionAction">
 			<result name="SUCCESS">pages/afficherQuestion.jsp</result>
 		</action>
 
 		<action name="AfficherQuestionSuivanteAction"
-			class="mywebapp.java.main.presentation.strutsAction.AfficherQuestionSuivanteAction">
+			class="mywebapp.java.main.presentation.serie.action.AfficherQuestionSuivanteAction">
 			<result name="SUCCESS">pages/afficherQuestion.jsp</result>
 		</action>
 		

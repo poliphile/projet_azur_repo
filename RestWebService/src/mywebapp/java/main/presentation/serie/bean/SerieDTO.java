@@ -21,6 +21,10 @@ public class SerieDTO {
 	private Date date_passage;
 	private int is_active;
 
+	public SerieDTO() {
+
+	}
+
 	/**
 	 * @return the id
 	 */
