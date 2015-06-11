@@ -1,38 +1,31 @@
 /**
  *
  */
-package mywebapp.java.main.persistance.object;
+package mywebapp.java.main.presentation.utilisateur.bean;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author matthieu
+ * @author Sekioa
  *
  */
-@Entity(name = "utilisateur")
-public class UtilisateurDO {
+@XmlRootElement
+public class UtilisateurDTO {
 
-	@Id
-	@GeneratedValue
 	private int id;
 	private String nom;
 	private String prenom;
 	private String login;
 	private String password;
-	@Column(name = "DATE_NAISS")
 	private Date dateNaiss;
-	@Column(name = "IS_ADMIN")
 	private int isAdmin;
+	private boolean isConnect;
 
 	/**
 	 * @return the id
 	 */
-
 	public int getId() {
 		return id;
 	}
@@ -123,7 +116,7 @@ public class UtilisateurDO {
 	/**
 	 * @return the isAdmin
 	 */
-	public int isAdmin() {
+	public int getIsAdmin() {
 		return isAdmin;
 	}
 
@@ -131,7 +124,23 @@ public class UtilisateurDO {
 	 * @param isAdmin
 	 *            the isAdmin to set
 	 */
-	public void setAdmin(final int isAdmin) {
+	public void setIsAdmin(final int isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+
+	/**
+	 * @return the isConnect
+	 */
+	public boolean isConnect() {
+		return isConnect;
+	}
+
+	/**
+	 * @param isConnect
+	 *            the isConnect to set
+	 */
+	public void setConnect(final boolean isConnect) {
+		this.isConnect = isConnect;
+	}
+
 }

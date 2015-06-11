@@ -23,7 +23,7 @@
     	</init-param> -->
     	<init-param>
   			<param-name>com.sun.jersey.config.property.packages</param-name>
-  			<param-value>mywebapp.java.main.presentation.resource</param-value>
+  			<param-value>mywebapp.java.main.presentation</param-value>
 		</init-param>
     	<load-on-startup>1</load-on-startup>
   	</servlet>

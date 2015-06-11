@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
     <%@ page import = "com.opensymphony.xwork2.ActionContext" %>
-        <%@ page import = " mywebapp.java.main.persistance.object.QuestionDO" %>
+        <%@ page import = " mywebapp.java.main.presentation.serie.bean.QuestionDTO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,23 +33,23 @@
 <body onload="startTimer()">
  <div id="sessionTimer"></div>
  <div style="float: left;" >
-<img alt="" src="data:image/jpg;base64,<%= ((QuestionDO)ActionContext.getContext().getSession().get("Question")).getBitArrayString()%>" width="700" height="700"/>
+<img alt="" src="data:image/jpg;base64,<%= ((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getBitArrayString()%>" width="700" height="700"/>
 </div>
 <div id="enonce1" style="float: right: ;">
  <s:if test="%{#session.double==1}">
-<p><h3><%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
-<p>A : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
-<p>B : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
-<p><h3><%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getEnonce2() %></h3></p>
-<p>C : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
-<p>D : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
+<p><h3><%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
+<p>A : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
+<p>B : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
+<p><h3><%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getEnonce2() %></h3></p>
+<p>C : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
+<p>D : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
 </s:if>
 <s:if test="%{#session.double!=1}">
-<p><h3><%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
-<p>A : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
-<p>B : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
-<p>C : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
-<p>D : <%=((QuestionDO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
+<p><h3><%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
+<p>A : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
+<p>B : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
+<p>C : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
+<p>D : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
  </s:if> 
 </div>
 

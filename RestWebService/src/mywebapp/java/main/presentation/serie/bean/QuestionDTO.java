@@ -1,38 +1,37 @@
 /**
  *
  */
-package mywebapp.java.main.persistance.object;
+package mywebapp.java.main.presentation.serie.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author matthieu
  *
  */
-@Entity(name = "question")
-public class QuestionDO {
-	@Id
-	@GeneratedValue
+@XmlRootElement
+public class QuestionDTO {
+
 	private int id;
 	private int id_serie;
-	@Column(name = "NUM_QUESTION")
 	private String num_question;
 	private String enonce;
 	private byte[] image;
-	private String reponse1;
-	private String reponse2;
+	private char reponse1;
+	private char reponse2;
 	private int question_double;
-	@Column(name = "TEMPS")
 	private String temps;
 	private String enonce2;
 	private String reponseA;
 	private String reponseB;
 	private String reponseC;
 	private String reponseD;
-	private int is_ready;
+	private int isReady;
+
+	public String getBitArrayString() {
+		return new String(
+				new org.apache.commons.codec.binary.Base64().encode(this.image));
+	}
 
 	/**
 	 * @return the id
@@ -65,6 +64,21 @@ public class QuestionDO {
 	}
 
 	/**
+	 * @return the num_question
+	 */
+	public String getNum_question() {
+		return num_question;
+	}
+
+	/**
+	 * @param num_question
+	 *            the num_question to set
+	 */
+	public void setNum_question(final String num_question) {
+		this.num_question = num_question;
+	}
+
+	/**
 	 * @return the enonce
 	 */
 	public String getEnonce() {
@@ -77,21 +91,6 @@ public class QuestionDO {
 	 */
 	public void setEnonce(final String enonce) {
 		this.enonce = enonce;
-	}
-
-	/**
-	 * @return the question_double
-	 */
-	public int isQuestion_double() {
-		return question_double;
-	}
-
-	/**
-	 * @param question_double
-	 *            the question_double to set
-	 */
-	public void setQuestion_double(final int question_double) {
-		this.question_double = question_double;
 	}
 
 	/**
@@ -109,24 +108,49 @@ public class QuestionDO {
 		this.image = image;
 	}
 
-	public String getBitArrayString() {
-		return new String(
-				new org.apache.commons.codec.binary.Base64().encode(this.image));
+	/**
+	 * @return the reponse1
+	 */
+	public char getReponse1() {
+		return reponse1;
 	}
 
 	/**
-	 * @return the num_question
+	 * @param reponse1
+	 *            the reponse1 to set
 	 */
-	public String getNum_question() {
-		return num_question;
+	public void setReponse1(final char reponse1) {
+		this.reponse1 = reponse1;
 	}
 
 	/**
-	 * @param num_question
-	 *            the num_question to set
+	 * @return the reponse2
 	 */
-	public void setNum_question(final String num_question) {
-		this.num_question = num_question;
+	public char getReponse2() {
+		return reponse2;
+	}
+
+	/**
+	 * @param reponse2
+	 *            the reponse2 to set
+	 */
+	public void setReponse2(final char reponse2) {
+		this.reponse2 = reponse2;
+	}
+
+	/**
+	 * @return the question_double
+	 */
+	public int getQuestion_double() {
+		return question_double;
+	}
+
+	/**
+	 * @param question_double
+	 *            the question_double to set
+	 */
+	public void setQuestion_double(final int question_double) {
+		this.question_double = question_double;
 	}
 
 	/**
@@ -218,57 +242,19 @@ public class QuestionDO {
 	public void setReponseD(final String reponseD) {
 		this.reponseD = reponseD;
 	}
-	
+
 	/**
-	 * @return the reponse1
+	 * @return the isReady
 	 */
-	public String getReponse1() {
-		return reponse1;
+	public int getIsReady() {
+		return isReady;
 	}
 
 	/**
-	 * @param reponse1
-	 *            the reponse1 to set
+	 * @param isReady
+	 *            the isReady to set
 	 */
-	public void setReponse1(String reponse1) {
-		this.reponse1 = reponse1;
+	public void setIsReady(final int isReady) {
+		this.isReady = isReady;
 	}
-
-	/**
-	 * @return the reponse2
-	 */
-	public String getReponse2() {
-		return reponse2;
-	}
-
-	/**
-	 * @param reponse2
-	 *            the reponse2 to set
-	 */
-	public void setReponse2(String reponse2) {
-		this.reponse2 = reponse2;
-	}
-
-	/**
-	 * @return the is_ready
-	 */
-	public int getIs_ready() {
-		return is_ready;
-	}
-
-	/**
-	 * @param is_ready
-	 *            the is_ready to set
-	 */
-	public void setIs_ready(final int is_ready) {
-		this.is_ready = is_ready;
-	}
-
-	/**
-	 * @return the question_double
-	 */
-	public int getQuestion_double() {
-		return question_double;
-	}
-	
 }
