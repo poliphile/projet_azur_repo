@@ -3,12 +3,7 @@
  */
 package mywebapp.java.main.persistance.daoimpl;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,7 +23,7 @@ public class QuestionDAO implements IQuestionDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * mywebapp.java.main.persistance.daointerface.IQuestionDAO#recupererQuestion
 	 * (int)
@@ -36,11 +31,11 @@ public class QuestionDAO implements IQuestionDAO {
 	@Override
 	public QuestionDO recupererQuestion(final int idQuestion, final int idSerie) {
 		final EntityManagerFactory emF = new Persistence()
-		.createEntityManagerFactory("my-pu");
+				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
-		.append("SELECT question.ID , question.ID_SERIE , question.ENONCE , question.IMAGE , question.REPONSE1 , question.REPONSE2 , question.QUESTION_DOUBLE , question.TEMPS ");
+				.append("SELECT question.ID , question.ID_SERIE , question.ENONCE , question.IMAGE , question.REPONSE1 , question.REPONSE2 , question.QUESTION_DOUBLE , question.TEMPS ");
 		queryBuilder.append("FROM question WHERE question.ID = '" + idQuestion
 				+ "' AND question.ID_SERIE = '" + idSerie + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
@@ -50,10 +45,11 @@ public class QuestionDAO implements IQuestionDAO {
 			question.setId(idQuestion);
 			question.setId_serie(idSerie);
 			question.setEnonce((String) results[2]);
-			 question.setTemps(Integer.toString((int)results[7]));
-
+			question.setTemps(Integer.toString((int) results[7]));
 
 		}
+		em.close();
+		emF.close();
 		return question;
 	}
 }
