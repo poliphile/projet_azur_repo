@@ -3,8 +3,11 @@
  */
 package mywebapp.java.main.persistance.daointerface;
 
+import java.util.List;
+
 import mywebapp.java.main.persistance.object.QuestionDO;
 import mywebapp.java.main.persistance.object.SerieDO;
+import mywebapp.java.main.persistance.object.UtilisateurQuestionDO;
 
 /**
  * @author matthieu
@@ -25,5 +28,9 @@ public interface ISerieDAO {
 			final String numeroSerie, final int numeroQuestion);
 
 	public String ajoutQuestion(final QuestionDO questionToADD);
+
+	public List<UtilisateurQuestionDO> getAllReponse(final String numeroSerie,
+			final String reponse1, final String reponse2,
+			final String numeroQuestion, final String user);
 
 }

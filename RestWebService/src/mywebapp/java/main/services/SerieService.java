@@ -3,10 +3,14 @@
  */
 package mywebapp.java.main.services;
 
+import java.util.List;
+
 import mywebapp.java.main.persistance.daoimpl.QuestionDAO;
 import mywebapp.java.main.persistance.daoimpl.SerieDAOImpl;
+import mywebapp.java.main.persistance.daoimpl.UtilisateurSerieDAOImpl;
 import mywebapp.java.main.persistance.object.QuestionDO;
 import mywebapp.java.main.persistance.object.SerieDO;
+import mywebapp.java.main.persistance.object.UtilisateurQuestionDO;
 import mywebapp.java.main.presentation.serie.bean.QuestionDTO;
 import mywebapp.java.main.presentation.serie.bean.SerieDTO;
 
@@ -28,6 +32,8 @@ public class SerieService {
 	private final SerieDAOImpl serieDAO = new SerieDAOImpl();
 
 	private final QuestionDAO questionDAO = new QuestionDAO();
+
+	private final UtilisateurSerieDAOImpl utilisateurSerieDAOImpl = new UtilisateurSerieDAOImpl();
 
 	public String lancerSerie(final int numserie) {
 		final String result = serieDAO.lancerSerie(numserie);
@@ -123,6 +129,34 @@ public class SerieService {
 		} else {
 			return instance;
 		}
+	}
+
+	public void calculerScore(final String numeroSerie, final String reponse1,
+			final String reponse2, final String numeroQuestion,
+			final String user) {
+		final List<UtilisateurQuestionDO> listUtilisateurQuestion = serieDAO
+				.getAllReponse(numeroSerie, reponse1, reponse2, numeroQuestion,
+						user);
+
+		int score = 0;
+
+		for (final UtilisateurQuestionDO utilisateurQuestionDO : listUtilisateurQuestion) {
+			final QuestionDTO questionDTO = recupererQuestion(numeroSerie,
+					utilisateurQuestionDO.getId_question());
+
+			if (questionDTO.getReponse1().equals(
+					utilisateurQuestionDO.getReponse1())) {
+				score++;
+				if (questionDTO.getQuestion_double() == 1
+						&& !questionDTO.getReponse2().equals(
+								utilisateurQuestionDO.getReponse2())) {
+					score--;
+				}
+			}
+		}
+
+		utilisateurSerieDAOImpl.updateUtilisateurSerieDO(numeroSerie, user,
+				score);
 	}
 
 }
