@@ -99,15 +99,27 @@ public class SerieRessource {
 			@FormParam("user") final String user) {
 
 		final int numeroQuestionInt = Integer.parseInt(numeroQuestion);
-		final QuestionDTO result = serieService.recupererQuestion(numeroSerie,
-				numeroQuestionInt + 1);
-		if (result != null && 1 == result.getIsReady()) {
-			utilisateurQuestionService.creerUtilisateurQuestion(numeroQuestion,
-					user, reponse1, reponse2);
-			return result;
+		final int questionSuivante = numeroQuestionInt + 1;
+
+		QuestionDTO result = new QuestionDTO();
+		if (questionSuivante <= 40) {
+			result = serieService.recupererQuestion(numeroSerie,
+					questionSuivante);
+
+			if (result != null && 1 == result.getIsReady()) {
+				utilisateurQuestionService.creerUtilisateurQuestion(
+						numeroQuestion, user, reponse1, reponse2);
+				return result;
+			}
 		}
 
-		return new QuestionDTO();
+		if (questionSuivante == 41) {
+			serieService.calculerScore(numeroSerie, reponse1, reponse2,
+					numeroQuestion, user);
+			result.setIsReady(2);
+			result.setNum_question("41");
+		}
+		return result;
 
 	}
 }

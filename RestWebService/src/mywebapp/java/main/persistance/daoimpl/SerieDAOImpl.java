@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import mywebapp.java.main.persistance.daointerface.ISerieDAO;
 import mywebapp.java.main.persistance.object.QuestionDO;
 import mywebapp.java.main.persistance.object.SerieDO;
+import mywebapp.java.main.persistance.object.UtilisateurQuestionDO;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -126,5 +127,30 @@ public class SerieDAOImpl implements ISerieDAO {
 		final List<SerieDO> serieDOs = em.createQuery(criteria).getResultList();
 
 		return serieDOs.get(0);
+	}
+
+	@Override
+	public List<UtilisateurQuestionDO> getAllReponse(final String numeroSerie,
+			final String reponse1, final String reponse2,
+			final String numeroQuestion, final String user) {
+
+		final EntityManager em = emF.createEntityManager();
+		final UtilisateurQuestionDO utilisateurQuestionDO = new UtilisateurQuestionDO();
+
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<UtilisateurQuestionDO> criteria = builder
+				.createQuery(UtilisateurQuestionDO.class);
+		final Root<UtilisateurQuestionDO> utilisateurQuestionRoot = criteria
+				.from(UtilisateurQuestionDO.class);
+		criteria.select(utilisateurQuestionRoot);
+		criteria.where(builder.equal(
+				utilisateurQuestionRoot.get("id_question"), numeroQuestion));
+		criteria.where(builder.equal(
+				utilisateurQuestionRoot.get("id_utilisateur"), user));
+
+		final List<UtilisateurQuestionDO> utilisateurQuestionDOs = em
+				.createQuery(criteria).getResultList();
+
+		return utilisateurQuestionDOs;
 	}
 }

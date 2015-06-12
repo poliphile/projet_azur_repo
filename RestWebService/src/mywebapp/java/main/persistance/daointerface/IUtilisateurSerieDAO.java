@@ -19,4 +19,6 @@ public interface IUtilisateurSerieDAO {
 	boolean supprimerUtilisateurSerieDO(
 			final UtilisateurSerieDO utilisateurSerieDO);
 
+	void updateUtilisateurSerieDO(String numeroSerie, String user, int score);
+
 }
