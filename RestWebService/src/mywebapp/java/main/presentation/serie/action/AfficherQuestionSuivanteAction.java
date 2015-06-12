@@ -27,6 +27,10 @@ public class AfficherQuestionSuivanteAction {
 					.recupererQuestion(
 							Integer.toString(questionActuelle.getId_serie()),
 							question);
+			questionSuivante.setIsReady(1);
+			questionActuelle.setIsReady(0);
+			serieService.activerQuestion(questionActuelle);
+			serieService.activerQuestion(questionSuivante);
 
 			context.getSession().put("Question", questionSuivante);
 			context.getSession().put("time", questionSuivante.getTemps());

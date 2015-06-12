@@ -54,13 +54,14 @@ public class QuestionDAO implements IQuestionDAO {
 	}
 
 	@Override
-	public void updateQuestion(QuestionDO questionDO) {
+	public void updateQuestion(final QuestionDO questionDO) {
 		final EntityManagerFactory emF = new Persistence()
 				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 
-		questionDO = em.find(QuestionDO.class, questionDO.getId());
-		questionDO.setIsReady(1);
+		final QuestionDO questionDOFind = em.find(QuestionDO.class,
+				questionDO.getId());
+		questionDOFind.setIsReady(questionDO.getIsReady());
 		em.getTransaction().begin();
 		em.getTransaction().commit();
 
