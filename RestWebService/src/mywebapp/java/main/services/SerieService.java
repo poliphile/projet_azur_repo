@@ -3,6 +3,7 @@
  */
 package mywebapp.java.main.services;
 
+import mywebapp.java.main.persistance.daoimpl.QuestionDAO;
 import mywebapp.java.main.persistance.daoimpl.SerieDAOImpl;
 import mywebapp.java.main.persistance.object.QuestionDO;
 import mywebapp.java.main.persistance.object.SerieDO;
@@ -26,6 +27,8 @@ public class SerieService {
 	 */
 	private final SerieDAOImpl serieDAO = new SerieDAOImpl();
 
+	private final QuestionDAO questionDAO = new QuestionDAO();
+
 	public String lancerSerie(final int numserie) {
 		final String result = serieDAO.lancerSerie(numserie);
 		return result;
@@ -47,6 +50,10 @@ public class SerieService {
 
 	public String ajouterQuestion(final QuestionDO question) {
 		return serieDAO.ajoutQuestion(question);
+	}
+
+	public void activerQuestion(final QuestionDTO questionDTO) {
+		questionDAO.updateQuestion(questionDTOtoDO(questionDTO));
 	}
 
 	public SerieDTO serieDOToDTO(final SerieDO serieDO) {
@@ -84,6 +91,30 @@ public class SerieService {
 		questionDTO.setIsReady(questionDO.getIsReady());
 
 		return questionDTO;
+	}
+
+	public QuestionDO questionDTOtoDO(final QuestionDTO questionDTO) {
+
+		final QuestionDO questionDO = new QuestionDO();
+
+		questionDO.setId(questionDTO.getId());
+		questionDO.setId_serie((questionDTO.getId_serie()));
+		questionDO.setNum_question((questionDTO.getNum_question()));
+		questionDO.setEnonce((questionDTO.getEnonce()));
+		questionDO.setImage((questionDTO.getImage()));
+		questionDO.setReponse1((questionDTO.getReponse1()));
+		questionDO.setReponse2((questionDTO.getReponse2()));
+		questionDO.setQuestion_double((questionDTO.getQuestion_double()));
+		questionDO.setTemps((questionDTO.getTemps()));
+		questionDO.setEnonce2((questionDTO.getEnonce2()));
+		questionDO.setReponseA((questionDTO.getReponseA()));
+		questionDO.setReponseB((questionDTO.getReponseB()));
+		questionDO.setReponseC((questionDTO.getReponseC()));
+		questionDO.setReponseD((questionDTO.getReponseD()));
+		questionDO.setIsReady(questionDTO.getIsReady());
+
+		return questionDO;
+
 	}
 
 	public static SerieService getInstance() {

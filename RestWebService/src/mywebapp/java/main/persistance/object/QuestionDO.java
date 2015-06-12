@@ -3,6 +3,8 @@
  */
 package mywebapp.java.main.persistance.object;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,11 @@ import javax.persistence.Id;
  *
  */
 @Entity(name = "question")
-public class QuestionDO {
+public class QuestionDO implements Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 2511115859002014800L;
 	@Id
 	@GeneratedValue
 	private int id;

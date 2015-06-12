@@ -26,8 +26,7 @@ public class AfficherQuestionAction {
 				.recupererQuestion(numSerie, 1);
 		if ("1".equals(question.getNum_question())) {
 			question.setIsReady(1);
-			// TODO : a voir suite au merge
-			// serieService.activerQuestion(question);
+			serieService.activerQuestion(question);
 		}
 		context.getSession().put("Question", question);
 		context.getSession().put("time", question.getTemps());

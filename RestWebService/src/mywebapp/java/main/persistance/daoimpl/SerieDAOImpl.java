@@ -26,11 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class SerieDAOImpl implements ISerieDAO {
 
 	final EntityManagerFactory emF = new Persistence()
-	.createEntityManagerFactory("my-pu");
+			.createEntityManagerFactory("my-pu");
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * mywebapp.java.main.persistance.daointerface.ISerieDAO#lancerSerie(int)
 	 */
@@ -41,8 +41,8 @@ public class SerieDAOImpl implements ISerieDAO {
 		em.getTransaction().begin();
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
-		.append("UPDATE serie SET serie.IS_ACTIVE = '1' WHERE serie.NUM_SERIE =' "
-				+ numeroSerie + "'");
+				.append("UPDATE serie SET serie.IS_ACTIVE = '1' WHERE serie.NUM_SERIE =' "
+						+ numeroSerie + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
 		query.executeUpdate();
 		em.getTransaction().commit();
@@ -57,8 +57,8 @@ public class SerieDAOImpl implements ISerieDAO {
 		em.getTransaction().begin();
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
-		.append("UPDATE serie SET serie.IS_ACTIVE = '0' WHERE serie.NUM_SERIE =' "
-				+ numeroSerie + "'");
+				.append("UPDATE serie SET serie.IS_ACTIVE = '0' WHERE serie.NUM_SERIE =' "
+						+ numeroSerie + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
 		query.executeUpdate();
 		em.getTransaction().commit();
@@ -71,31 +71,19 @@ public class SerieDAOImpl implements ISerieDAO {
 
 		final EntityManager em = emF.createEntityManager();
 
-		final StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder
-		.append("SELECT question.ID, question.ID_SERIE, question.NUM_QUESTION, question.ENONCE, question.IMAGE, question.REPONSE1, question.REPONSE2, question.QUESTION_DOUBLE, question.TEMPS , question.ENONCE2 , question.REPONSEA , question.REPONSEB , question.REPONSEC , question.REPONSED FROM QUESTION question WHERE question.NUM_QUESTION = '"
-				+ numQuestion
-				+ "' and question.ID_SERIE = '"
-				+ numSerie + "'");
-		final Query query = em.createNativeQuery(queryBuilder.toString());
-		final List<Object[]> results = query.getResultList();
-		final QuestionDO questionDO = new QuestionDO();
-		for (final Object[] o : results) {
-			questionDO.setId((int) o[0]);
-			questionDO.setId_serie((int) o[1]);
-			questionDO.setNum_question(Integer.toString((int) o[2]));
-			questionDO.setEnonce((String) o[3]);
-			questionDO.setImage((byte[]) o[4]);
-			// questionDO.setReponse1((String) results[5]);
-			// questionDO.setReponse2((String) results[6]);
-			questionDO.setQuestion_double((int) o[7]);
-			questionDO.setTemps(Integer.toString((int) o[8]));
-			questionDO.setEnonce2((String) o[9]);
-			questionDO.setReponseA((String) o[10]);
-			questionDO.setReponseB((String) o[11]);
-			questionDO.setReponseC((String) o[12]);
-			questionDO.setReponseD((String) o[13]);
-		}
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<QuestionDO> criteria = builder
+				.createQuery(QuestionDO.class);
+		final Root<QuestionDO> questionRoot = criteria.from(QuestionDO.class);
+		criteria.select(questionRoot);
+		criteria.where(
+				builder.equal(questionRoot.get("num_question"), numQuestion),
+				builder.equal(questionRoot.get("id_serie"),
+						Integer.parseInt(numSerie)));
+
+		final QuestionDO questionDO = em.createQuery(criteria).getResultList()
+				.get(0);
+
 		return questionDO;
 	}
 

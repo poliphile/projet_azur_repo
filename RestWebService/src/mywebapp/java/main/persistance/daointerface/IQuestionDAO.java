@@ -12,4 +12,6 @@ import mywebapp.java.main.persistance.object.QuestionDO;
 public interface IQuestionDAO {
 
 	public QuestionDO recupererQuestion(final int idQuestion, final int idSerie);
+
+	public void updateQuestion(final QuestionDO questionDO);
 }
