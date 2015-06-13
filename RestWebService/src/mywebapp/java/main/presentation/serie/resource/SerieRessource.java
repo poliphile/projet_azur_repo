@@ -14,6 +14,7 @@ import javax.ws.rs.core.UriInfo;
 
 import mywebapp.java.main.presentation.serie.bean.QuestionDTO;
 import mywebapp.java.main.presentation.serie.bean.SerieDTO;
+import mywebapp.java.main.presentation.serie.bean.UtilisateurQuestionDTO;
 import mywebapp.java.main.presentation.serie.bean.UtilisateurSerieDTO;
 import mywebapp.java.main.presentation.utilisateur.bean.UtilisateurDTO;
 import mywebapp.java.main.services.SerieService;
@@ -69,6 +70,16 @@ public class SerieRessource {
 		return serie;
 	}
 
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/get_correction")
+	public UtilisateurSerieDTO debutCorrection(
+			@FormParam("user") final String user,
+			@FormParam("id_serie") final String serie) {
+
+		return utilisateurSerieService.recupereUtilisateurSerieDTO(user, serie);
+	}
+
 	// TODO merge
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -91,7 +102,7 @@ public class SerieRessource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/get_question")
-	public QuestionDTO postReponse(
+	public QuestionDTO postQuestion(
 			@FormParam("id_serie") final String numeroSerie,
 			@FormParam("reponse1") final String reponse1,
 			@FormParam("reponse2") final String reponse2,
@@ -108,7 +119,8 @@ public class SerieRessource {
 
 			if (result != null && 1 == result.getIsReady()) {
 				utilisateurQuestionService.creerUtilisateurQuestion(
-						numeroQuestion, user, reponse1, reponse2);
+						numeroQuestion, user, reponse1, reponse2,
+						result.getReponse1(), result.getReponse2());
 				return result;
 			}
 		}
@@ -121,5 +133,16 @@ public class SerieRessource {
 		}
 		return result;
 
+	}
+
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/get_reponse")
+	public UtilisateurQuestionDTO postReponse(
+			@FormParam("num_question") final String numeroQuestion,
+			@FormParam("user") final String user) {
+
+		return utilisateurQuestionService
+				.recupererReponse(numeroQuestion, user);
 	}
 }

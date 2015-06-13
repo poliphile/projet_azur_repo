@@ -27,11 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class SerieDAOImpl implements ISerieDAO {
 
 	final EntityManagerFactory emF = new Persistence()
-			.createEntityManagerFactory("my-pu");
+	.createEntityManagerFactory("my-pu");
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * mywebapp.java.main.persistance.daointerface.ISerieDAO#lancerSerie(int)
 	 */
@@ -42,8 +42,8 @@ public class SerieDAOImpl implements ISerieDAO {
 		em.getTransaction().begin();
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
-				.append("UPDATE serie SET serie.IS_ACTIVE = '1' WHERE serie.NUM_SERIE =' "
-						+ numeroSerie + "'");
+		.append("UPDATE serie SET serie.IS_ACTIVE = '1' WHERE serie.NUM_SERIE =' "
+				+ numeroSerie + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
 		query.executeUpdate();
 		em.getTransaction().commit();
@@ -58,8 +58,8 @@ public class SerieDAOImpl implements ISerieDAO {
 		em.getTransaction().begin();
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder
-				.append("UPDATE serie SET serie.IS_ACTIVE = '0' WHERE serie.NUM_SERIE =' "
-						+ numeroSerie + "'");
+		.append("UPDATE serie SET serie.IS_ACTIVE = '0' WHERE serie.NUM_SERIE =' "
+				+ numeroSerie + "'");
 		final Query query = em.createNativeQuery(queryBuilder.toString());
 		query.executeUpdate();
 		em.getTransaction().commit();
@@ -143,8 +143,6 @@ public class SerieDAOImpl implements ISerieDAO {
 		final Root<UtilisateurQuestionDO> utilisateurQuestionRoot = criteria
 				.from(UtilisateurQuestionDO.class);
 		criteria.select(utilisateurQuestionRoot);
-		criteria.where(builder.equal(
-				utilisateurQuestionRoot.get("id_question"), numeroQuestion));
 		criteria.where(builder.equal(
 				utilisateurQuestionRoot.get("id_utilisateur"), user));
 

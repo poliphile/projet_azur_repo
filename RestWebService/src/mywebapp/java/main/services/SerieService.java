@@ -62,6 +62,34 @@ public class SerieService {
 		questionDAO.updateQuestion(questionDTOtoDO(questionDTO));
 	}
 
+	public void calculerScore(final String numeroSerie, final String reponse1,
+			final String reponse2, final String numeroQuestion,
+			final String user) {
+		final List<UtilisateurQuestionDO> listUtilisateurQuestion = serieDAO
+				.getAllReponse(numeroSerie, reponse1, reponse2, numeroQuestion,
+						user);
+
+		int score = 0;
+
+		for (final UtilisateurQuestionDO utilisateurQuestionDO : listUtilisateurQuestion) {
+			final QuestionDTO questionDTO = recupererQuestion(numeroSerie,
+					utilisateurQuestionDO.getId_question());
+
+			if (questionDTO.getReponse1().equals(
+					utilisateurQuestionDO.getReponse1())) {
+				score++;
+				if (questionDTO.getQuestion_double() == 1
+						&& !questionDTO.getReponse2().equals(
+								utilisateurQuestionDO.getReponse2())) {
+					score--;
+				}
+			}
+		}
+
+		utilisateurSerieDAOImpl.updateUtilisateurSerieDO(numeroSerie, user,
+				score);
+	}
+
 	public SerieDTO serieDOToDTO(final SerieDO serieDO) {
 
 		final SerieDTO serieDTO = new SerieDTO();
@@ -129,34 +157,6 @@ public class SerieService {
 		} else {
 			return instance;
 		}
-	}
-
-	public void calculerScore(final String numeroSerie, final String reponse1,
-			final String reponse2, final String numeroQuestion,
-			final String user) {
-		final List<UtilisateurQuestionDO> listUtilisateurQuestion = serieDAO
-				.getAllReponse(numeroSerie, reponse1, reponse2, numeroQuestion,
-						user);
-
-		int score = 0;
-
-		for (final UtilisateurQuestionDO utilisateurQuestionDO : listUtilisateurQuestion) {
-			final QuestionDTO questionDTO = recupererQuestion(numeroSerie,
-					utilisateurQuestionDO.getId_question());
-
-			if (questionDTO.getReponse1().equals(
-					utilisateurQuestionDO.getReponse1())) {
-				score++;
-				if (questionDTO.getQuestion_double() == 1
-						&& !questionDTO.getReponse2().equals(
-								utilisateurQuestionDO.getReponse2())) {
-					score--;
-				}
-			}
-		}
-
-		utilisateurSerieDAOImpl.updateUtilisateurSerieDO(numeroSerie, user,
-				score);
 	}
 
 }

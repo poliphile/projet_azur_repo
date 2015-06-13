@@ -111,9 +111,8 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 				.from(UtilisateurSerieDO.class);
 		criteria.select(utilisateurSerieRoot);
 		criteria.where(builder.equal(utilisateurSerieRoot.get("id_serie"),
-				numeroSerie));
-		criteria.where(builder.equal(
-				utilisateurSerieRoot.get("id_utilisateur"), user));
+				numeroSerie), builder.equal(
+						utilisateurSerieRoot.get("id_utilisateur"), user));
 
 		final UtilisateurSerieDO utilisateurQuestionDOs = em.createQuery(
 				criteria).getSingleResult();
@@ -126,6 +125,26 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 
 		em.close();
 		emF.close();
+	}
+
+	@Override
+	public UtilisateurSerieDO recupererUtilisateurSerieDO(final String user,
+			final String serie) {
+		final EntityManagerFactory emF = new Persistence()
+		.createEntityManagerFactory("my-pu");
+		final EntityManager em = emF.createEntityManager();
+
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<UtilisateurSerieDO> criteria = builder
+				.createQuery(UtilisateurSerieDO.class);
+		final Root<UtilisateurSerieDO> utilisateurSerieRoot = criteria
+				.from(UtilisateurSerieDO.class);
+		criteria.select(utilisateurSerieRoot);
+		criteria.where(
+				builder.equal(utilisateurSerieRoot.get("id_serie"), serie),
+				builder.equal(utilisateurSerieRoot.get("id_utilisateur"), user));
+
+		return em.createQuery(criteria).getSingleResult();
 	}
 
 }
