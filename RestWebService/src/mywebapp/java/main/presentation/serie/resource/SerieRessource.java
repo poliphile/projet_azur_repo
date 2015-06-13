@@ -113,11 +113,12 @@ public class SerieRessource {
 		final int questionSuivante = numeroQuestionInt + 1;
 
 		QuestionDTO result = new QuestionDTO();
+
 		if (questionSuivante <= 40) {
 			result = serieService.recupererQuestion(numeroSerie,
 					questionSuivante);
 
-			if (result != null && 1 == result.getIsReady()) {
+			if (result != null) {
 				utilisateurQuestionService.creerUtilisateurQuestion(
 						numeroQuestion, user, reponse1, reponse2,
 						result.getReponse1(), result.getReponse2());

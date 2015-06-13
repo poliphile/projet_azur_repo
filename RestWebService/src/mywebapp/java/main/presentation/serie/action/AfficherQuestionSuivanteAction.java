@@ -22,7 +22,7 @@ public class AfficherQuestionSuivanteAction {
 				.get("Question");
 		final int question = Integer.parseInt(questionActuelle
 				.getNum_question()) + 1;
-		if (question < 40) {
+		if (question <= 40) {
 			final QuestionDTO questionSuivante = serieService
 					.recupererQuestion(
 							Integer.toString(questionActuelle.getId_serie()),

@@ -38,18 +38,36 @@
 <div id="enonce1" style="float: right: ;">
  <s:if test="%{#session.double==1}">
 <p><h3><%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
+<s:if test="%{#session.Question.getReponseA() != null}">
 <p>A : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
+</s:if>
+<s:if test="%{#session.Question.getReponseB() != null}">
 <p>B : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
+</s:if>
+<s:if test="%{#session.Question.getEnonce2() != null}">
 <p><h3><%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getEnonce2() %></h3></p>
+</s:if>
+<s:if test="%{#session.Question.getReponseC() != null}">
 <p>C : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
+</s:if>
+<s:if test="%{#session.Question.getReponseD() != null}">
 <p>D : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
+</s:if>
 </s:if>
 <s:if test="%{#session.double!=1}">
 <p><h3><%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getEnonce() %></h3></p>
+<s:if test="%{#session.Question.getReponseA() != null}">
 <p>A : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseA() %></p>
+</s:if>
+<s:if test="%{#session.Question.getReponseB() != null}">
 <p>B : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseB() %></p>
+</s:if>
+<s:if test="%{#session.Question.getReponseC() != null}">
 <p>C : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseC() %></p>
+</s:if>
+<s:if test="%{#session.Question.getReponseD() != null}">
 <p>D : <%=((QuestionDTO)ActionContext.getContext().getSession().get("Question")).getReponseD() %></p>
+</s:if>
  </s:if> 
 </div>
 
