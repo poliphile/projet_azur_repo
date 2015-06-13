@@ -75,7 +75,7 @@ public class SerieRessource {
 	@Path("/get_correction")
 	public UtilisateurSerieDTO debutCorrection(
 			@FormParam("user") final String user,
-			@FormParam("id_serie") final String serie) {
+			@FormParam("serie") final String serie) {
 
 		return utilisateurSerieService.recupereUtilisateurSerieDTO(user, serie);
 	}
