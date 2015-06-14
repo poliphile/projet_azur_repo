@@ -3,6 +3,7 @@
  */
 package mywebapp.java.main.persistance.object;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
  *
  */
 @Entity(name = "utilisateur")
-public class UtilisateurDO {
+public class UtilisateurDO implements Serializable {
 
 	@Id
 	@GeneratedValue
