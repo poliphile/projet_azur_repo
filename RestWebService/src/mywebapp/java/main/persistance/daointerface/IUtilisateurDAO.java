@@ -3,12 +3,15 @@
  */
 package mywebapp.java.main.persistance.daointerface;
 
+import java.util.Date;
+
 import mywebapp.java.main.persistance.object.UtilisateurDO;
 
 /**
  * @author matthieu
  *
  */
+
 public interface IUtilisateurDAO {
 
 	/**
@@ -22,4 +25,19 @@ public interface IUtilisateurDAO {
 	public UtilisateurDO recupererUtilisateurDO(final String login,
 			final String password);
 
+	/**
+	 * @param login
+	 * @param dateNaissance
+	 * @return UtilisateurDO
+	 */
+	public UtilisateurDO recupererUtilisateurDOByNaissance(final String login,
+			final Date dateNaissance);
+
+	/**
+	 * @param login
+	 * @param password
+	 * @return
+	 */
+	public UtilisateurDO updateUtilisateurPassword(final String login,
+			final String password);
 }

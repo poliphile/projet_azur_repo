@@ -20,7 +20,7 @@ public class AfficherQuestionAction {
 	public String execute() {
 		final ActionContext context = ActionContext.getContext();
 		final SerieDTO serie = serieService.recupererSerieEnCours();
-		final String numSerie = String.valueOf(serie.getNum_serie());
+		final String numSerie = Integer.toString(serie.getNum_serie());
 		final String resut = serieService.closeConnexion(numSerie);
 		final QuestionDTO question = serieService
 				.recupererQuestion(numSerie, 1);

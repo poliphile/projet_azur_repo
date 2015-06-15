@@ -6,6 +6,9 @@ package mywebapp.java.main.persistance.daoimpl;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import mywebapp.java.main.persistance.daointerface.IUtilisateurSerieDAO;
 import mywebapp.java.main.persistance.object.UtilisateurSerieDO;
@@ -18,7 +21,7 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see mywebapp.java.main.persistance.daointerface.IUtilisateurSerieDAO#
 	 * creerUtilisateurSerieDO(int, int)
 	 */
@@ -27,7 +30,7 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 			final UtilisateurSerieDO utilisateurSerieDO) {
 
 		final EntityManagerFactory emF = new Persistence()
-		.createEntityManagerFactory("my-pu");
+				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 
 		utilisateurSerieDO.setScore(-1);
@@ -51,7 +54,7 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see mywebapp.java.main.persistance.daointerface.IUtilisateurSerieDAO#
 	 * modifierUtilisateurSerieDO
 	 * (mywebapp.java.main.persistance.object.UtilisateurSerieDO)
@@ -61,7 +64,7 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 			final UtilisateurSerieDO utilisateurSerieDO) {
 
 		final EntityManagerFactory emF = new Persistence()
-		.createEntityManagerFactory("my-pu");
+				.createEntityManagerFactory("my-pu");
 		final EntityManager em = emF.createEntityManager();
 
 		em.getTransaction().begin();
@@ -81,7 +84,7 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see mywebapp.java.main.persistance.daointerface.IUtilisateurSerieDAO#
 	 * supprimerUtilisateurSerieDO
 	 * (mywebapp.java.main.persistance.object.UtilisateurSerieDO)
@@ -91,6 +94,57 @@ public class UtilisateurSerieDAOImpl implements IUtilisateurSerieDAO {
 			final UtilisateurSerieDO utilisateurSerieDO) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void updateUtilisateurSerieDO(final String numeroSerie,
+			final String user, final int score) {
+		final EntityManagerFactory emF = new Persistence()
+		.createEntityManagerFactory("my-pu");
+		final EntityManager em = emF.createEntityManager();
+		final UtilisateurSerieDO utilisateurSerieDO = new UtilisateurSerieDO();
+
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<UtilisateurSerieDO> criteria = builder
+				.createQuery(UtilisateurSerieDO.class);
+		final Root<UtilisateurSerieDO> utilisateurSerieRoot = criteria
+				.from(UtilisateurSerieDO.class);
+		criteria.select(utilisateurSerieRoot);
+		criteria.where(builder.equal(utilisateurSerieRoot.get("id_serie"),
+				numeroSerie), builder.equal(
+						utilisateurSerieRoot.get("id_utilisateur"), user));
+
+		final UtilisateurSerieDO utilisateurQuestionDOs = em.createQuery(
+				criteria).getSingleResult();
+		utilisateurQuestionDOs.setScore(score);
+
+		em.merge(utilisateurQuestionDOs);
+
+		em.getTransaction().begin();
+		em.getTransaction().commit();
+
+		em.close();
+		emF.close();
+	}
+
+	@Override
+	public UtilisateurSerieDO recupererUtilisateurSerieDO(final String user,
+			final String serie) {
+		final EntityManagerFactory emF = new Persistence()
+		.createEntityManagerFactory("my-pu");
+		final EntityManager em = emF.createEntityManager();
+
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<UtilisateurSerieDO> criteria = builder
+				.createQuery(UtilisateurSerieDO.class);
+		final Root<UtilisateurSerieDO> utilisateurSerieRoot = criteria
+				.from(UtilisateurSerieDO.class);
+		criteria.select(utilisateurSerieRoot);
+		criteria.where(
+				builder.equal(utilisateurSerieRoot.get("id_serie"), serie),
+				builder.equal(utilisateurSerieRoot.get("id_utilisateur"), user));
+
+		return em.createQuery(criteria).getSingleResult();
 	}
 
 }

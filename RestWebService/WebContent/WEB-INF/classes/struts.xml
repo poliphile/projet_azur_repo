@@ -9,36 +9,41 @@
 			<result>pages/index.jsp</result>
 		</action>
 		<action name="LoginAction"
-			class="mywebapp.java.main.presentation.strutsAction.LoginAction">
+			class="mywebapp.java.main.presentation.utilisateur.action.LoginAction">
 			<result name="SUCCESS">pages/menu.jsp</result>
 			<result name="FAIL">pages/index.jsp</result>
 		</action>
 
 		<action name="LancerSerieAction"
-			class="mywebapp.java.main.presentation.strutsAction.LancerSerieAction">
+			class="mywebapp.java.main.presentation.serie.action.LancerSerieAction">
 			<result name="SUCCESS">pages/timerLancementSerie.jsp</result>
 		</action>
 
 		<action name="AfficherQuestionAction"
-			class="mywebapp.java.main.presentation.strutsAction.AfficherQuestionAction">
+			class="mywebapp.java.main.presentation.serie.action.AfficherQuestionAction">
 			<result name="SUCCESS">pages/afficherQuestion.jsp</result>
 		</action>
 
 		<action name="AfficherQuestionSuivanteAction"
-			class="mywebapp.java.main.presentation.strutsAction.AfficherQuestionSuivanteAction">
+			class="mywebapp.java.main.presentation.serie.action.AfficherQuestionSuivanteAction">
 			<result name="SUCCESS">pages/afficherQuestion.jsp</result>
+			<result name="FAIL">pages/serieFinie.jsp</result>
 		</action>
 		
-		<action name="AfficherLancerSerie">
-		 <result>pages/accueil.jsp</result>
+		<action name="AfficherLancerSerie" class="mywebapp.java.main.presentation.serie.action.AfficherLancerSerie">
+		 <result name="SUCCESS">pages/accueil.jsp</result>
 		</action>
 		
-		<action name="AjoutSerie">
-		<result>pages/ajoutSerie.jsp</result>
+		<action name="AjoutSerieAction" class="mywebapp.java.main.presentation.serie.action.AjoutSerieAction">
+		<result name="SUCCESS" type="redirect">pages/ajoutSerie.jsp</result>
 		</action>
 		
 		<action name="AjoutQuestionAction" class="mywebapp.java.main.presentation.strutsAction.AjoutQuestionAction">
-		<result name="SUCCESS">pages/ajoutSerie.jsp</result>
+		<result name="SUCCESS" type="redirect">pages/ajoutSerie.jsp</result>
+		</action>
+		
+		<action name="RedirigerMenuAction" class="mywebapp.java.main.presentation.serie.action.RedirigerMenuAction">
+		<result name="SUCCESS">pages/menu.jsp</result>
 		</action>
 	</package>
 

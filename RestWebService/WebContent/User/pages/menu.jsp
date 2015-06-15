@@ -17,8 +17,8 @@
 <div style="border: solid 1px;width: 300px;margin-left: 40%;">
 <p>Gestion des séries</p>
 <p><a href="<s:url action='AfficherLancerSerie'/>">Projeter une série</a></p>
-<p><a href="<s:url action='AjoutSerie'/>">Ajouter une série</a></p>
-<p><a href="#">Supprimer une série</a></p>
+<p><a href="<s:url action='AjoutSerieAction'/>">Ajouter une série</a></p>
+<p><a href="#">Modifier une série</a></p>
 </div>
 </body>
 </html>

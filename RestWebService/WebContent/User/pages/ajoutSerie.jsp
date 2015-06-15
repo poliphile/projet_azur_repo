@@ -13,7 +13,7 @@
 <table>
 <tr align="right">
 <td>
-<p><s:textfield id="numeroSerie" label="Numéro de la série" readonly="true"/></p>
+<p><s:textfield name="numeroSerie" label="Numéro de la série" readonly="true" value="%{#attr['numeroSerie']}"/></p>
 </td></tr>
 <tr align="right"><td>
 <p><s:file name="upload" label="Image"/></p>
@@ -24,7 +24,7 @@
 </td></tr>
 <tr align="right">
 <td>
-<p><s:textfield id="numeroQuestion" label="Numéro de la question" name="numeroQuestion"/></p>
+<p><s:textfield id="numeroQuestion" label="Numéro de la question" name="numeroQuestion" readonly="true" value="%{#attr['numeroQuestion']}"/></p>
 </td></tr>
 <tr align="right"><td>
 <p><s:checkbox id="checkBoxDouble" name="isDouble" label="Question en deux partie" labelposition="left" onclick="affiche_bloc(checkBoxDouble)"/></p>

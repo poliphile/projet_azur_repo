@@ -11,6 +11,8 @@ import javax.imageio.stream.FileImageInputStream;
 import mywebapp.java.main.persistance.object.QuestionDO;
 import mywebapp.java.main.services.SerieService;
 
+import com.opensymphony.xwork2.ActionContext;
+
 /**
  * @author matthieu
  *
@@ -52,7 +54,8 @@ public class AjoutQuestionAction {
 
 	public String execute() {
 		final QuestionDO question = new QuestionDO();
-		question.setId_serie(2);
+		final ActionContext context = ActionContext.getContext();
+		question.setId_serie(Integer.parseInt(numeroSerie));
 		byte[] b = extractImage(file);
 		question.setImage(b);
 		question.setEnonce(enonce1);
@@ -70,6 +73,10 @@ public class AjoutQuestionAction {
 		question.setReponse1(reponse1);
 		question.setReponse2(reponse2);
 		serieService.ajouterQuestion(question);
+		final int numQuestionSuivante = Integer.parseInt(question
+				.getNum_question()) + 1;
+		context.getSession().put("numeroQuestion", Integer.toString(numQuestionSuivante));
+		context.getSession().put("numeroSerie", question.getId_serie());
 		return "SUCCESS";
 	}
 
@@ -89,6 +96,21 @@ public class AjoutQuestionAction {
 			e1.printStackTrace();
 		}
 		return b;
+	}
+
+	public void reset() {
+		this.setDouble(false);
+		this.setEnonce1(null);
+		this.setEnonce2(null);
+		this.setFile(null);
+		this.setFilename(null);
+		this.setReponse1(null);
+		this.setReponse2(null);
+		this.setReponseB(null);
+		this.setReponseA(null);
+		this.setReponseC(null);
+		this.setReponseD(null);
+		this.setTemps(null);
 	}
 
 	/**

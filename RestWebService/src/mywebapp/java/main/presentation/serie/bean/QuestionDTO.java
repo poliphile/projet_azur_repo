@@ -17,8 +17,8 @@ public class QuestionDTO {
 	private String num_question;
 	private String enonce;
 	private byte[] image;
-	private char reponse1;
-	private char reponse2;
+	private String reponse1;
+	private String reponse2;
 	private int question_double;
 	private String temps;
 	private String enonce2;
@@ -111,7 +111,7 @@ public class QuestionDTO {
 	/**
 	 * @return the reponse1
 	 */
-	public char getReponse1() {
+	public String getReponse1() {
 		return reponse1;
 	}
 
@@ -119,14 +119,14 @@ public class QuestionDTO {
 	 * @param reponse1
 	 *            the reponse1 to set
 	 */
-	public void setReponse1(final char reponse1) {
+	public void setReponse1(final String reponse1) {
 		this.reponse1 = reponse1;
 	}
 
 	/**
 	 * @return the reponse2
 	 */
-	public char getReponse2() {
+	public String getReponse2() {
 		return reponse2;
 	}
 
@@ -134,7 +134,7 @@ public class QuestionDTO {
 	 * @param reponse2
 	 *            the reponse2 to set
 	 */
-	public void setReponse2(final char reponse2) {
+	public void setReponse2(final String reponse2) {
 		this.reponse2 = reponse2;
 	}
 

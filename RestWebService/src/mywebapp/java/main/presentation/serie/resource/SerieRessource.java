@@ -14,9 +14,11 @@ import javax.ws.rs.core.UriInfo;
 
 import mywebapp.java.main.presentation.serie.bean.QuestionDTO;
 import mywebapp.java.main.presentation.serie.bean.SerieDTO;
+import mywebapp.java.main.presentation.serie.bean.UtilisateurQuestionDTO;
 import mywebapp.java.main.presentation.serie.bean.UtilisateurSerieDTO;
 import mywebapp.java.main.presentation.utilisateur.bean.UtilisateurDTO;
 import mywebapp.java.main.services.SerieService;
+import mywebapp.java.main.services.UtilisateurQuestionService;
 import mywebapp.java.main.services.UtilisateurSerieService;
 import mywebapp.java.main.services.UtilisateurService;
 
@@ -31,6 +33,8 @@ public class SerieRessource {
 	private final UtilisateurService utilisateurService = UtilisateurService
 			.getInstance();
 	private final UtilisateurSerieService utilisateurSerieService = UtilisateurSerieService
+			.getInstance();
+	private final UtilisateurQuestionService utilisateurQuestionService = UtilisateurQuestionService
 			.getInstance();
 
 	// The @Context annotation allows us to have certain contextual objects
@@ -66,12 +70,22 @@ public class SerieRessource {
 		return serie;
 	}
 
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/get_correction")
+	public UtilisateurSerieDTO debutCorrection(
+			@FormParam("user") final String user,
+			@FormParam("serie") final String serie) {
+
+		return utilisateurSerieService.recupereUtilisateurSerieDTO(user, serie);
+	}
+
 	// TODO merge
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/get_premiere_question")
 	public QuestionDTO postPremiereQuestion(
-			@FormParam("numSerie") final String numeroSerie) {
+			@FormParam("id_serie") final String numeroSerie) {
 
 		final int numeroQuestion = 1;
 
@@ -85,24 +99,51 @@ public class SerieRessource {
 		return new QuestionDTO();
 	}
 
-	// TODO merge
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/get_question")
-	public QuestionDTO postReponse(
-			@FormParam("numSerie") final String numeroSerie,
+	public QuestionDTO postQuestion(
+			@FormParam("id_serie") final String numeroSerie,
 			@FormParam("reponse1") final String reponse1,
 			@FormParam("reponse2") final String reponse2,
-			@FormParam("numQuestion") final String numeroQuestion) {
+			@FormParam("num_question") final String numeroQuestion,
+			@FormParam("user") final String user) {
 
 		final int numeroQuestionInt = Integer.parseInt(numeroQuestion);
-		final QuestionDTO result = serieService.recupererQuestion(numeroSerie,
-				numeroQuestionInt);
-		if (result != null) {
-			return result;
+		final int questionSuivante = numeroQuestionInt + 1;
+
+		QuestionDTO result = new QuestionDTO();
+
+		if (questionSuivante <= 40) {
+			result = serieService.recupererQuestion(numeroSerie,
+					questionSuivante);
+
+			if (result != null) {
+				utilisateurQuestionService.creerUtilisateurQuestion(
+						numeroQuestion, user, reponse1, reponse2,
+						result.getReponse1(), result.getReponse2());
+				return result;
+			}
 		}
 
-		return null;
+		if (questionSuivante == 41) {
+			serieService.calculerScore(numeroSerie, reponse1, reponse2,
+					numeroQuestion, user);
+			result.setIsReady(2);
+			result.setNum_question("41");
+		}
+		return result;
 
+	}
+
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/get_reponse")
+	public UtilisateurQuestionDTO postReponse(
+			@FormParam("num_question") final String numeroQuestion,
+			@FormParam("user") final String user) {
+
+		return utilisateurQuestionService
+				.recupererReponse(numeroQuestion, user);
 	}
 }

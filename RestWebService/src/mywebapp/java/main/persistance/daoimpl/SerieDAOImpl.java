@@ -3,16 +3,21 @@
  */
 package mywebapp.java.main.persistance.daoimpl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import mywebapp.java.main.persistance.daointerface.ISerieDAO;
 import mywebapp.java.main.persistance.object.QuestionDO;
 import mywebapp.java.main.persistance.object.SerieDO;
+import mywebapp.java.main.persistance.object.UtilisateurQuestionDO;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,38 +67,27 @@ public class SerieDAOImpl implements ISerieDAO {
 		return "SUCCESS";
 	}
 
-	// TODO merge
-
 	@Override
 	public QuestionDO recupererQuestionDO(final String numSerie,
 			final int numQuestion) {
 
 		final EntityManager em = emF.createEntityManager();
 
-		final StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder
-				.append("SELECT question.ID, question.ID_SERIE, question.NUM_QUESTION, question.ENONCE, question.IMAGE, question.REPONSE1, question.REPONSE2, question.QUESTION_DOUBLE, question.TEMPS , question.ENONCE2 , question.REPONSEA , question.REPONSEB , question.REPONSEC , question.REPONSED FROM QUESTION question WHERE question.NUM_QUESTION = '"
-						+ numQuestion
-						+ "' and question.ID_SERIE = '"
-						+ numSerie + "'");
-		final Query query = em.createNativeQuery(queryBuilder.toString());
-		final List<Object[]> results = query.getResultList();
-		final QuestionDO questionDO = new QuestionDO();
-		for (final Object[] o : results) {
-			questionDO.setId((int) o[0]);
-			questionDO.setId_serie((int) o[1]);
-			questionDO.setNum_question((String) o[2]);
-			questionDO.setEnonce((String) o[3]);
-			questionDO.setImage((byte[]) o[4]);
-			// questionDO.setReponse1((String) results[5]);
-			// questionDO.setReponse2((String) results[6]);
-			questionDO.setQuestion_double((int) o[7]);
-			questionDO.setTemps((String) o[8]);
-			questionDO.setEnonce2((String) o[9]);
-			questionDO.setReponseA((String) o[10]);
-			questionDO.setReponseB((String) o[11]);
-			questionDO.setReponseC((String) o[12]);
-			questionDO.setReponseD((String) o[13]);
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<QuestionDO> criteria = builder
+				.createQuery(QuestionDO.class);
+		final Root<QuestionDO> questionRoot = criteria.from(QuestionDO.class);
+		criteria.select(questionRoot);
+		criteria.where(
+				builder.equal(questionRoot.get("num_question"), numQuestion),
+				builder.equal(questionRoot.get("id_serie"),
+						Integer.parseInt(numSerie)));
+
+		final List<QuestionDO> listQuestionDO = em.createQuery(criteria)
+				.getResultList();
+		QuestionDO questionDO = null;
+		if (listQuestionDO != null && listQuestionDO.size() > 0) {
+			questionDO = listQuestionDO.get(0);
 		}
 		return questionDO;
 	}
@@ -125,13 +119,73 @@ public class SerieDAOImpl implements ISerieDAO {
 
 	@Override
 	public SerieDO recupererSerieEnCours() {
-		// TODO Auto-generated method stub
-		return null;
+		final EntityManager em = emF.createEntityManager();
+		final SerieDO serieDO = new SerieDO();
+
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<SerieDO> criteria = builder
+				.createQuery(SerieDO.class);
+		final Root<SerieDO> serieRoot = criteria.from(SerieDO.class);
+		criteria.select(serieRoot);
+		criteria.where(builder.equal(serieRoot.get("is_active"), 1));
+		final List<SerieDO> serieDOs = em.createQuery(criteria).getResultList();
+
+		return serieDOs.get(0);
 	}
 
 	@Override
-	public boolean activerQuestionDO(final QuestionDO questionDO) {
-		// TODO Auto-generated method stub
-		return false;
+	public List<UtilisateurQuestionDO> getAllReponse(final String numeroSerie,
+			final String reponse1, final String reponse2,
+			final String numeroQuestion, final String user) {
+
+		final EntityManager em = emF.createEntityManager();
+		final UtilisateurQuestionDO utilisateurQuestionDO = new UtilisateurQuestionDO();
+
+		final CriteriaBuilder builder = emF.getCriteriaBuilder();
+		final CriteriaQuery<UtilisateurQuestionDO> criteria = builder
+				.createQuery(UtilisateurQuestionDO.class);
+		final Root<UtilisateurQuestionDO> utilisateurQuestionRoot = criteria
+				.from(UtilisateurQuestionDO.class);
+		criteria.select(utilisateurQuestionRoot);
+		criteria.where(builder.equal(
+
+		utilisateurQuestionRoot.get("id_question"), numeroQuestion));
+		criteria.where(builder.equal(
+
+		utilisateurQuestionRoot.get("id_utilisateur"), user));
+
+		final List<UtilisateurQuestionDO> utilisateurQuestionDOs = em
+				.createQuery(criteria).getResultList();
+
+		return utilisateurQuestionDOs;
+	}
+
+	@Override
+	public String recupererNouvelleSerie() {
+		final EntityManager em = emF.createEntityManager();
+		final StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("SELECT COUNT(*) FROM serie");
+
+		final Query query = em.createQuery(queryBuilder.toString());
+		final int result = (int) ((long) query.getSingleResult());
+		final SerieDO newSerie = new SerieDO();
+		newSerie.setDate_creation(new Date());
+		newSerie.setNum_serie(result + 1);
+		em.getTransaction().begin();
+		em.persist(newSerie);
+		em.getTransaction().commit();
+
+		return Integer.toString(newSerie.getNum_serie());
+	}
+
+	@Override
+	public List<String> recupererNumeroSerie() {
+		final EntityManager em = emF.createEntityManager();
+		final StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("SELECT serie.id FROM serie as serie");
+		final Query query = em.createQuery(queryBuilder.toString());
+
+		final List<String> result = query.getResultList();
+		return result;
 	}
 }

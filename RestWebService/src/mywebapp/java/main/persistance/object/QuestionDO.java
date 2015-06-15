@@ -3,6 +3,8 @@
  */
 package mywebapp.java.main.persistance.object;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,11 @@ import javax.persistence.Id;
  *
  */
 @Entity(name = "question")
-public class QuestionDO {
+public class QuestionDO implements Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 2511115859002014800L;
 	@Id
 	@GeneratedValue
 	private int id;
@@ -32,6 +38,8 @@ public class QuestionDO {
 	private String reponseB;
 	private String reponseC;
 	private String reponseD;
+	@Column(name = "IS_READY")
+	private int isReady;
 
 	/**
 	 * @return the id
@@ -246,5 +254,27 @@ public class QuestionDO {
 	 */
 	public void setReponse2(final String reponse2) {
 		this.reponse2 = reponse2;
+	}
+
+	/**
+	 * @return the question_double
+	 */
+	public int getQuestion_double() {
+		return question_double;
+	}
+
+	/**
+	 * @return the isReady
+	 */
+	public int getIsReady() {
+		return isReady;
+	}
+
+	/**
+	 * @param isReady
+	 *            the isReady to set
+	 */
+	public void setIsReady(final int isReady) {
+		this.isReady = isReady;
 	}
 }

@@ -11,6 +11,9 @@ import mywebapp.java.main.persistance.object.UtilisateurSerieDO;
  */
 public interface IUtilisateurSerieDAO {
 
+	UtilisateurSerieDO recupererUtilisateurSerieDO(final String user,
+			final String serie);
+
 	boolean creerUtilisateurSerieDO(final UtilisateurSerieDO utilisateurSerieDO);
 
 	boolean modifierUtilisateurSerieDO(
@@ -18,5 +21,7 @@ public interface IUtilisateurSerieDAO {
 
 	boolean supprimerUtilisateurSerieDO(
 			final UtilisateurSerieDO utilisateurSerieDO);
+
+	void updateUtilisateurSerieDO(String numeroSerie, String user, int score);
 
 }

@@ -10,7 +10,12 @@
 <table border="0" align="center">
 <tr>
 <td align="right">
-<s:textfield label="Numéro de la série :" name="numserie" size="20" maxlength="20"/>
+<%-- <s:textfield label="Numéro de la série :" name="numserie" size="20" maxlength="20"/> --%>
+<s:select label="Numéro de la série " 
+		headerKey="-1" headerValue="Sélectionez une série"
+		list="listSerie" 
+		name="numserie" 
+		value="0" />
 </td>
 <td align="right">
 <s:textfield label="Temps avant départ ( en secondes)" name="tempsDepart" size="20" maxlength="20"/>

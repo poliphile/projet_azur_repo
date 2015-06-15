@@ -22,16 +22,22 @@ public class AfficherQuestionSuivanteAction {
 				.get("Question");
 		final int question = Integer.parseInt(questionActuelle
 				.getNum_question()) + 1;
-		if (question < 40) {
-			final QuestionDTO questionSuivante = serieService
-					.recupererQuestion(
-							Integer.toString(questionActuelle.getId_serie()),
-							question);
+		
+		final QuestionDTO questionSuivante = serieService.recupererQuestion(
+				Integer.toString(questionActuelle.getId_serie()), question);
+		if (questionSuivante != null && questionSuivante.getEnonce() != null) {
+			questionSuivante.setIsReady(1);
+			questionActuelle.setIsReady(0);
+			serieService.activerQuestion(questionActuelle);
+			serieService.activerQuestion(questionSuivante);
 
 			context.getSession().put("Question", questionSuivante);
 			context.getSession().put("time", questionSuivante.getTemps());
 			context.getSession().put("double",
 					questionSuivante.getQuestion_double());
+		} else {
+
+			return "FAIL";
 		}
 
 		return "SUCCESS";

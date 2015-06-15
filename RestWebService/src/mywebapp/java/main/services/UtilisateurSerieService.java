@@ -44,6 +44,12 @@ public class UtilisateurSerieService {
 		}
 	}
 
+	public UtilisateurSerieDTO recupereUtilisateurSerieDTO(final String user,
+			final String serie) {
+		return convertUtilisateurSerieDOtoDTO(utilisateurSerieDAO
+				.recupererUtilisateurSerieDO(user, serie));
+	}
+
 	public boolean creerUtilisateurSerie(
 			final UtilisateurSerieDTO utilisateurSerieDTO,
 			final UtilisateurDTO utilisateurDTO) {
@@ -87,6 +93,19 @@ public class UtilisateurSerieService {
 				.getId_utilisateur());
 
 		return utilisateurSerieDO;
+	}
+
+	private UtilisateurSerieDTO convertUtilisateurSerieDOtoDTO(
+			final UtilisateurSerieDO utilisateurSerieDO) {
+
+		final UtilisateurSerieDTO utilisateurSerieDTO = new UtilisateurSerieDTO();
+
+		utilisateurSerieDTO.setId_serie(utilisateurSerieDO.getId_serie());
+		utilisateurSerieDTO.setId_utilisateur(utilisateurSerieDO
+				.getId_utilisateur());
+		utilisateurSerieDTO.setScore(utilisateurSerieDO.getScore());
+
+		return utilisateurSerieDTO;
 	}
 
 }

@@ -24,6 +24,9 @@ import mywebapp.java.main.services.UtilisateurService;
 @Path("/login_user")
 public class UtilisateurResource {
 
+	final UtilisateurService utilisateurService = UtilisateurService
+			.getInstance();
+
 	// The @Context annotation allows us to have certain contextual objects
 	// injected into this class.
 	// UriInfo object allows us to get URI information (no kidding).
@@ -52,9 +55,6 @@ public class UtilisateurResource {
 	public UtilisateurDTO postPerson(@FormParam("user") final String user,
 			@FormParam("password") final String password) {
 
-		final UtilisateurService utilisateurService = UtilisateurService
-				.getInstance();
-
 		System.out.println("Storing posted " + user + " " + password);
 		final UtilisateurDTO utilisateurDTO = utilisateurService
 				.rechercherUtilisateur(user, password);
@@ -70,5 +70,39 @@ public class UtilisateurResource {
 
 		return utilisateurDTO;
 
+	}
+
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/password")
+	public UtilisateurDTO afficherNouveauMdp(
+			@FormParam("user") final String user,
+			@FormParam("date_naissance") final String dateNaissance) {
+
+		final UtilisateurDTO utilisateurDTO = utilisateurService
+				.rechercherUtilisateurByNaissance(user, dateNaissance);
+
+		if (utilisateurDTO != null && utilisateurDTO.getLogin().equals(user)) {
+			return utilisateurDTO;
+		}
+
+		return null;
+	}
+
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/new_password")
+	public UtilisateurDTO confirmerNouveauMdp(
+			@FormParam("user") final String user,
+			@FormParam("password") final String password) {
+
+		final UtilisateurDTO utilisateurDTO = utilisateurService
+				.changerMdpUtilisateur(user, password);
+
+		if (utilisateurDTO != null && utilisateurDTO.getLogin().equals(user)) {
+			return utilisateurDTO;
+		}
+
+		return null;
 	}
 }
