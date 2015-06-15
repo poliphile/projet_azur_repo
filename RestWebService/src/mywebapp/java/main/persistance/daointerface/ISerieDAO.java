@@ -38,3 +38,4 @@ public interface ISerieDAO {
 	public List<String> recupererNumeroSerie();
 
 }
+

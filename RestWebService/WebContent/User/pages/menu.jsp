@@ -21,4 +21,5 @@
 <p><a href="#">Modifier une série</a></p>
 </div>
 </body>
+
 </html>

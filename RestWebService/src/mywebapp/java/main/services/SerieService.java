@@ -169,3 +169,4 @@ public class SerieService {
 		return serieDAO.recupererNumeroSerie();
 	}
 }
+

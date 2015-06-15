@@ -189,3 +189,4 @@ public class SerieDAOImpl implements ISerieDAO {
 		return result;
 	}
 }
+

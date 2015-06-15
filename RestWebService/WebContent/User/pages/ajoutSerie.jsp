@@ -104,4 +104,5 @@ function affiche_bloc(CheckBox) {
 }
 </script>
 </body>
+
 </html>
