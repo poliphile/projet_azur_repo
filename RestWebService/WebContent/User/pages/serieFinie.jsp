@@ -16,7 +16,7 @@
   <s:form action="RedirigerMenuAction" name="formulaire" >
   <s:submit id="submitButton" value="Menu"/>
   </s:form>
-  <s:form action="CorrectionAction" name="formulaire2">
+  <s:form action="AfficherQuestionSuivanteCorrection" name="formulaire2">
   <s:submit id="submitButton" value="Corriger"/>
   </s:form>
   </div>

@@ -60,6 +60,11 @@
 		<result name="SUCCESS" type="chain">PreparationModifSerie</result>
 		<result name="FAIL" >pages/serieAjouter.jsp</result>
 		</action>
+		
+		<action name="AfficherQuestionSuivanteCorrection"    class="mywebapp.java.main.presentation.serie.action.AfficherQuestionSuivanteCorrection">
+		<result name="SUCCESS">pages/correctionSerie.jsp</result>
+		<result name="FAIL" >pages/menu.jsp</result>
+		</action>
 	</package>
 
 
