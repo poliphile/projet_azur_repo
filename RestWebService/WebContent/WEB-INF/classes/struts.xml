@@ -32,6 +32,7 @@
 		
 		<action name="AfficherLancerSerie" class="mywebapp.java.main.presentation.serie.action.AfficherLancerSerie">
 		 <result name="SUCCESS">pages/accueil.jsp</result>
+		  <result name="FAIL">pages/selectionSerieModif.jsp</result>
 		</action>
 		
 		<action name="AjoutSerieAction" class="mywebapp.java.main.presentation.serie.action.AjoutSerieAction">
@@ -40,10 +41,24 @@
 		
 		<action name="AjoutQuestionAction" class="mywebapp.java.main.presentation.strutsAction.AjoutQuestionAction">
 		<result name="SUCCESS" type="redirect">pages/ajoutSerie.jsp</result>
+		<result name="FAIL" >pages/serieAjouter.jsp</result>
 		</action>
 		
 		<action name="RedirigerMenuAction" class="mywebapp.java.main.presentation.serie.action.RedirigerMenuAction">
 		<result name="SUCCESS">pages/menu.jsp</result>
+		</action>
+		
+		<action name="ModifierSerie" class="mywebapp.java.main.presentation.serie.action.ModifierSerie">
+		<result name="SUCCESS" type="chain">AfficherLancerSerie</result>
+		</action>
+		
+		<action name="PreparationModifSerie" class="mywebapp.java.main.presentation.serie.action.PreparationModifSerie">
+		<result name="SUCCESS" type="redirect">pages/modificationSerie.jsp</result>
+		</action>
+		
+		<action name="ModificationSerieAction" class="mywebapp.java.main.presentation.serie.action.ModificationSerieAction">
+		<result name="SUCCESS" type="chain">PreparationModifSerie</result>
+		<result name="FAIL" >pages/serieAjouter.jsp</result>
 		</action>
 	</package>
 

@@ -112,7 +112,37 @@ public class SerieDAOImpl implements ISerieDAO {
 
 		final EntityManager em = emF.createEntityManager();
 		em.getTransaction().begin();
-		em.persist(questionToADD);
+		if (questionToADD.getImage() != null) {
+
+			em.merge(questionToADD);
+
+		} else {
+			final StringBuilder queryBuilder = new StringBuilder();
+			queryBuilder.append("UPDATE question SET ENONCE='"
+					+ questionToADD.getEnonce() + "' ,REPONSE1='"
+					+ questionToADD.getReponse1() + "' ");
+			if (questionToADD.getReponse2() != null) {
+				queryBuilder.append(",REPONSE2='" + questionToADD.getReponse2()
+						+ "' ,QUESTION_DOUBLE='"
+						+ questionToADD.getQuestion_double() + "' ");
+			} else {
+				queryBuilder.append(",REPONSE2='',QUESTION_DOUBLE='"
+						+ questionToADD.getQuestion_double() + "' ");
+			}
+
+			queryBuilder.append(",TEMPS='" + questionToADD.getTemps()
+					+ "' ,ENONCE2='" + questionToADD.getEnonce2() + "' ");
+			queryBuilder.append(",REPONSEA='" + questionToADD.getReponseA()
+					+ "' ,REPONSEB='" + questionToADD.getReponseB() + "' ");
+			queryBuilder.append(",REPONSEC='" + questionToADD.getReponseC()
+					+ "' ,REPONSED='" + questionToADD.getReponseD() + "' ");
+			queryBuilder.append("WHERE ID_SERIE='"
+					+ questionToADD.getId_serie() + "' AND NUM_QUESTION='"
+					+ questionToADD.getNum_question() + "'");
+
+			final Query query = em.createQuery(queryBuilder.toString());
+			query.executeUpdate();
+		}
 		em.getTransaction().commit();
 		return "success";
 	}
@@ -189,4 +219,3 @@ public class SerieDAOImpl implements ISerieDAO {
 		return result;
 	}
 }
-

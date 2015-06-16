@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mywebapp.java.main.presentation.strutsAction;
+package mywebapp.java.main.presentation.serie.action;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,12 @@ import com.opensymphony.xwork2.ActionContext;
  * @author matthieu
  *
  */
-public class AjoutQuestionAction {
+public class ModificationSerieAction {
+
+	/**
+	 * @author matthieu
+	 *
+	 */
 
 	private String numeroSerie;
 	private File file;
@@ -34,6 +39,12 @@ public class AjoutQuestionAction {
 	private String numeroQuestion;
 	private String reponse1;
 	private String reponse2;
+	private String enonce3;
+	private String reponseE;
+	private String reponseF;
+	private String reponseG;
+	private String reponseH;
+	private String reponse3;
 
 	/**
 	 * @return the isDouble
@@ -46,7 +57,7 @@ public class AjoutQuestionAction {
 	 * @param isDouble
 	 *            the isDouble to set
 	 */
-	public void setDouble(boolean isDouble) {
+	public void setIsDouble(boolean isDouble) {
 		this.isDouble = isDouble;
 	}
 
@@ -61,27 +72,40 @@ public class AjoutQuestionAction {
 			question.setImage(b);
 		}
 
-		question.setEnonce(removeUnecessaryToken(enonce1));
-		question.setEnonce2(removeUnecessaryToken(enonce2));
-		question.setQuestion_double(0);
-		if (enonce2 != null) {
+		if (isDouble) {
+			question.setEnonce(removeUnecessaryToken(enonce2));
+			question.setEnonce2(removeUnecessaryToken(enonce3));
 			question.setQuestion_double(1);
+			question.setReponseA(removeUnecessaryToken(reponseE));
+			question.setReponseB(removeUnecessaryToken(reponseF));
+			question.setReponseC(removeUnecessaryToken(reponseG));
+			question.setReponseD(removeUnecessaryToken(reponseH));
+			question.setTemps(temps);
+			question.setNum_question(numeroQuestion);
+			question.setReponse1(removeUnecessaryToken(reponse2));
+			question.setReponse2(removeUnecessaryToken(reponse3));
+		} else {
+
+			question.setEnonce(removeUnecessaryToken(enonce1));
+			question.setQuestion_double(0);
+			question.setQuestion_double(0);
+			question.setReponseA(removeUnecessaryToken(reponseA));
+			question.setReponseB(removeUnecessaryToken(reponseB));
+			question.setReponseC(removeUnecessaryToken(reponseC));
+			question.setReponseD(removeUnecessaryToken(reponseD));
+			question.setTemps(temps);
+			question.setNum_question(numeroQuestion);
+			question.setReponse1(removeUnecessaryToken(reponse1));
+			question.setReponse2(null);
 		}
-		question.setReponseA(removeUnecessaryToken(reponseA));
-		question.setReponseB(removeUnecessaryToken(reponseB));
-		question.setReponseC(removeUnecessaryToken(reponseC));
-		question.setReponseD(removeUnecessaryToken(reponseD));
-		question.setTemps(temps);
-		question.setNum_question(numeroQuestion);
-		question.setReponse1(removeUnecessaryToken(reponse1));
-		question.setReponse2(removeUnecessaryToken(reponse2));
 		serieService.ajouterQuestion(question);
 		final int numQuestionSuivante = Integer.parseInt(question
 				.getNum_question()) + 1;
 		context.getSession().put("numeroQuestion",
 				Integer.toString(numQuestionSuivante));
-		context.getSession().put("numeroSerie", question.getId_serie());
-		if (numQuestionSuivante == 40) {
+		context.getSession().put("numeroSerie",
+				Integer.toString(question.getId_serie()));
+		if (numQuestionSuivante > 40) {
 			return "FAIL";
 		}
 		return "SUCCESS";
@@ -106,7 +130,7 @@ public class AjoutQuestionAction {
 	}
 
 	public void reset() {
-		this.setDouble(false);
+		this.setIsDouble(false);
 		this.setEnonce1(null);
 		this.setEnonce2(null);
 		this.setFile(null);
@@ -121,7 +145,7 @@ public class AjoutQuestionAction {
 	}
 
 	public String removeUnecessaryToken(String object) {
-		if(null == object){
+		if (null == object) {
 			return object;
 		}
 		if (object.startsWith("'")) {
@@ -367,4 +391,93 @@ public class AjoutQuestionAction {
 		this.reponse2 = reponse2;
 	}
 
+	/**
+	 * @return the enonce3
+	 */
+	public String getEnonce3() {
+		return enonce3;
+	}
+
+	/**
+	 * @param enonce3
+	 *            the enonce3 to set
+	 */
+	public void setEnonce3(String enonce3) {
+		this.enonce3 = enonce3;
+	}
+
+	/**
+	 * @return the reponseE
+	 */
+	public String getReponseE() {
+		return reponseE;
+	}
+
+	/**
+	 * @param reponseE
+	 *            the reponseE to set
+	 */
+	public void setReponseE(String reponseE) {
+		this.reponseE = reponseE;
+	}
+
+	/**
+	 * @return the reponseF
+	 */
+	public String getReponseF() {
+		return reponseF;
+	}
+
+	/**
+	 * @param reponseF
+	 *            the reponseF to set
+	 */
+	public void setReponseF(String reponseF) {
+		this.reponseF = reponseF;
+	}
+
+	/**
+	 * @return the reponseG
+	 */
+	public String getReponseG() {
+		return reponseG;
+	}
+
+	/**
+	 * @param reponseG
+	 *            the reponseG to set
+	 */
+	public void setReponseG(String reponseG) {
+		this.reponseG = reponseG;
+	}
+
+	/**
+	 * @return the reponseH
+	 */
+	public String getReponseH() {
+		return reponseH;
+	}
+
+	/**
+	 * @param reponseH
+	 *            the reponseH to set
+	 */
+	public void setReponseH(String reponseH) {
+		this.reponseH = reponseH;
+	}
+
+	/**
+	 * @return the reponse3
+	 */
+	public String getReponse3() {
+		return reponse3;
+	}
+
+	/**
+	 * @param reponse3
+	 *            the reponse3 to set
+	 */
+	public void setReponse3(String reponse3) {
+		this.reponse3 = reponse3;
+	}
 }

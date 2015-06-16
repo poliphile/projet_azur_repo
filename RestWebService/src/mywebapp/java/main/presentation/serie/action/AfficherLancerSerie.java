@@ -5,6 +5,8 @@ package mywebapp.java.main.presentation.serie.action;
 
 import java.util.List;
 
+import com.opensymphony.xwork2.ActionContext;
+
 import mywebapp.java.main.services.SerieService;
 
 /**
@@ -19,6 +21,9 @@ public class AfficherLancerSerie {
 
 	public String execute() {
 		listSerie = serieService.recupererIDSerie();
+		if(ActionContext.getContext().get("Modification") != null){
+			return "FAIL";
+		}
 		return "SUCCESS";
 	}
 
