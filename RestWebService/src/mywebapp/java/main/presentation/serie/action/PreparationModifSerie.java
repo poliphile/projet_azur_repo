@@ -30,15 +30,15 @@ public class PreparationModifSerie {
 		} else {
 			final String numeroSerie = (String) ActionContext.getContext()
 					.getSession().get("numeroSerie");
-			final int numeroQuestion = Integer.parseInt((String) ActionContext
-					.getContext().getSession().get("numeroQuestion"));
+			final int numeroQuestion = (int) ActionContext.getContext()
+					.getSession().get("numeroQuestion");
 			question = serieService.recupererQuestion(numeroSerie,
 					numeroQuestion);
 			if (question.getId_serie() == 0) {
 				question.setId_serie(Integer.parseInt((String) ActionContext
 						.getContext().getSession().get("numeroSerie")));
-				question.setNum_question((String) ActionContext.getContext()
-						.getSession().get("numeroQuestion"));
+				question.setNum_question(Integer.toString((int) ActionContext
+						.getContext().getSession().get("numeroQuestion")));
 			}
 		}
 
@@ -104,7 +104,7 @@ public class PreparationModifSerie {
 			} else {
 				context.getSession().put("isA", false);
 				if ("B".equals(question.getReponse1())) {
-					context.getSession().put("isB", false);
+					context.getSession().put("isB", true);
 					context.getSession().put("isC", false);
 					context.getSession().put("isD", false);
 				}

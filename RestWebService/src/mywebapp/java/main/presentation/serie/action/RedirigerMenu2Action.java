@@ -9,11 +9,10 @@ import com.opensymphony.xwork2.ActionContext;
  * @author matthieu
  *
  */
-public class RedirigerMenuAction {
-	
+public class RedirigerMenu2Action {
+
 	public String execute(){
 		ActionContext.getContext().getSession().remove("numeroQuestion");
 		return "SUCCESS";
 	}
-
 }

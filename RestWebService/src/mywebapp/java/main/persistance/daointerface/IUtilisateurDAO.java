@@ -40,4 +40,21 @@ public interface IUtilisateurDAO {
 	 */
 	public UtilisateurDO updateUtilisateurPassword(final String login,
 			final String password);
+
+	/**
+	 * @param utilisateurToAdd
+	 * @return
+	 */
+	public String ajouterUtilisateur(final UtilisateurDO utilisateurToAdd);
+
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @param dateNaissance
+	 * @return
+	 */
+	public UtilisateurDO rechercherCandidat(final String nom,
+			final String prenom, final Date dateNaissance);
+	
+	public void modifierUtilisateur(final UtilisateurDO utilisateur);
 }

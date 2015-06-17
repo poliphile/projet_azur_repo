@@ -82,12 +82,16 @@
 </td></tr>
 <tr align="center"><td>
 <s:submit value="Ajouter"/>
+
 </td></tr>
 </table>
 </div> 
 
 
 </form>
+<s:form action="RedirigerMenuAction"> 
+<s:submit value="Retour menu"/>
+</s:form>
 <script type="text/javascript">
 function affiche_bloc(CheckBox) {
     if (CheckBox.checked)

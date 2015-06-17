@@ -10,8 +10,8 @@
 <div style="margin-left: 40%;"><p><h1>Menu</h1></p></div>
 <div style="border: solid 1px;width: 300px;margin-top: 50px;margin-left: 40%;">
 <p>Gestion des candidats</p>
-<p><a href="#">Ajout d'un candidat</a></p>
-<p><a href="#">Modifier un candidat</a></p>
+<p><a href="<s:url action='AfficherAjoutCandidatAction'/>">Ajout d'un candidat</a></p>
+<p><a href="<s:url action='AfficherModifierCandidat'/>">Modifier un candidat</a></p>
 <p><a href="#">Récapitulatif des scores</a></p>
 </div>
 <div style="border: solid 1px;width: 300px;margin-left: 40%;">

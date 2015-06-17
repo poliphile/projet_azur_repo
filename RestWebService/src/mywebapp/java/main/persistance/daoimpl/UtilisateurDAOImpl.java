@@ -3,11 +3,14 @@
  */
 package mywebapp.java.main.persistance.daoimpl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -114,5 +117,57 @@ public class UtilisateurDAOImpl implements IUtilisateurDAO {
 
 		return utilisateurDO;
 	}
-}
 
+	@Override
+	public String ajouterUtilisateur(UtilisateurDO utilisateurToAdd) {
+		final EntityManagerFactory emF = new Persistence()
+				.createEntityManagerFactory("my-pu");
+		final EntityManager em = emF.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(utilisateurToAdd);
+		em.getTransaction().commit();
+		return "SUCCESS";
+	}
+
+	@Override
+	public UtilisateurDO rechercherCandidat(String nom, String prenom,
+			Date dateNaissance) {
+		final EntityManagerFactory emF = new Persistence()
+				.createEntityManagerFactory("my-pu");
+		final EntityManager em = emF.createEntityManager();
+		final StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder
+				.append("Select u.id,u.nom,u.prenom,u.login,u.password,u.dateNaiss FROM utilisateur u ");
+		queryBuilder.append("WHERE u.nom='" + nom + "' AND u.prenom='" + prenom
+				+ "'");
+		final Query query = em.createQuery(queryBuilder.toString());
+		final List<Object[]> result = query.getResultList();
+		final List<UtilisateurDO> utilisateurs = new ArrayList<UtilisateurDO>();
+		for (final Object[] o : result) {
+			final UtilisateurDO utilisateurFound = new UtilisateurDO();
+			utilisateurFound.setId((int) o[0]);
+			utilisateurFound.setNom((String) o[1]);
+			utilisateurFound.setPrenom((String) o[2]);
+			utilisateurFound.setLogin((String) o[3]);
+			utilisateurFound.setPassword((String) o[4]);
+			utilisateurFound.setDateNaiss((Date) o[5]);
+
+			utilisateurs.add(utilisateurFound);
+		}
+		if (utilisateurs.size() > 0) {
+			return utilisateurs.get(0);
+		}
+		return new UtilisateurDO();
+	}
+
+	@Override
+	public void modifierUtilisateur(UtilisateurDO utilisateur) {
+		final EntityManagerFactory emF = new Persistence()
+				.createEntityManagerFactory("my-pu");
+		final EntityManager em = emF.createEntityManager();
+		em.getTransaction().begin();
+		em.merge(utilisateur);
+		em.getTransaction().commit();
+
+	}
+}

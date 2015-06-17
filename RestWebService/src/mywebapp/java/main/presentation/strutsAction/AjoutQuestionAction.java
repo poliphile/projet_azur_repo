@@ -46,7 +46,7 @@ public class AjoutQuestionAction {
 	 * @param isDouble
 	 *            the isDouble to set
 	 */
-	public void setDouble(boolean isDouble) {
+	public void setIsDouble(boolean isDouble) {
 		this.isDouble = isDouble;
 	}
 
@@ -64,7 +64,7 @@ public class AjoutQuestionAction {
 		question.setEnonce(removeUnecessaryToken(enonce1));
 		question.setEnonce2(removeUnecessaryToken(enonce2));
 		question.setQuestion_double(0);
-		if (enonce2 != null) {
+		if (isDouble) {
 			question.setQuestion_double(1);
 		}
 		question.setReponseA(removeUnecessaryToken(reponseA));
@@ -106,7 +106,7 @@ public class AjoutQuestionAction {
 	}
 
 	public void reset() {
-		this.setDouble(false);
+		this.setIsDouble(false);
 		this.setEnonce1(null);
 		this.setEnonce2(null);
 		this.setFile(null);
@@ -121,13 +121,11 @@ public class AjoutQuestionAction {
 	}
 
 	public String removeUnecessaryToken(String object) {
-		if(null == object){
+		if (null == object) {
 			return object;
 		}
-		if (object.startsWith("'")) {
-			return object.replaceFirst("'", "");
-		} else if (object.endsWith("'")) {
-			return object.substring(0, object.length() - 1);
+		if(object.length() > 1 && object.endsWith(" ")){
+			return object.substring(0,object.length() - 2);
 		}
 		return object;
 	}

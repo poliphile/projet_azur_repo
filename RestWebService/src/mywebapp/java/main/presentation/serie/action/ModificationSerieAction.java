@@ -101,8 +101,7 @@ public class ModificationSerieAction {
 		serieService.ajouterQuestion(question);
 		final int numQuestionSuivante = Integer.parseInt(question
 				.getNum_question()) + 1;
-		context.getSession().put("numeroQuestion",
-				Integer.toString(numQuestionSuivante));
+		context.getSession().put("numeroQuestion", numQuestionSuivante);
 		context.getSession().put("numeroSerie",
 				Integer.toString(question.getId_serie()));
 		if (numQuestionSuivante > 40) {
@@ -148,10 +147,8 @@ public class ModificationSerieAction {
 		if (null == object) {
 			return object;
 		}
-		if (object.startsWith("'")) {
-			return object.replaceFirst("'", "");
-		} else if (object.endsWith("'")) {
-			return object.substring(0, object.length() - 1);
+		if (object.length() > 1 && object.endsWith(" ")) {
+			return object.substring(0, object.length() - 2);
 		}
 		return object;
 	}

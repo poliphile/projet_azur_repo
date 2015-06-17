@@ -45,7 +45,7 @@
 		</action>
 		
 		<action name="RedirigerMenuAction" class="mywebapp.java.main.presentation.serie.action.RedirigerMenuAction">
-		<result name="SUCCESS">pages/menu.jsp</result>
+		<result name="SUCCESS">menu.jsp</result>
 		</action>
 		
 		<action name="ModifierSerie" class="mywebapp.java.main.presentation.serie.action.ModifierSerie">
@@ -64,6 +64,30 @@
 		<action name="AfficherQuestionSuivanteCorrection"    class="mywebapp.java.main.presentation.serie.action.AfficherQuestionSuivanteCorrection">
 		<result name="SUCCESS">pages/correctionSerie.jsp</result>
 		<result name="FAIL" >pages/menu.jsp</result>
+		</action>
+		
+		<action name="AjoutCandidatAction" class="mywebapp.java.main.presentation.utilisateur.action.AjoutCandidatAction">
+		<result name="SUCCESS">pages/menu.jsp</result>
+		</action>
+		
+		<action name="AfficherAjoutCandidatAction" class="mywebapp.java.main.presentation.strutsAction.AfficherAjoutCandidatAction">
+		<result name="SUCCESS">pages/ajoutCandidat.jsp</result>
+		</action>
+		
+		<action name="RedirigerMenu2Action" class="mywebapp.java.main.presentation.serie.action.RedirigerMenu2Action">
+		<result name="SUCCESS">pages/menu.jsp</result>
+		</action>
+		
+		<action name="AfficherModifierCandidat" class="mywebapp.java.main.presentation.strutsAction.AfficherModifierCandidatAction">
+		<result name="SUCCESS">pages/rechercheCandidat.jsp</result>
+		</action>
+		
+		<action name="RechercherCandidatAction" class="mywebapp.java.main.presentation.utilisateur.action.RechercherCandidatAction">
+		<result name="SUCCESS">pages/modifierCandidat.jsp</result>
+		</action>
+		
+		<action name="ModifierCandidatAction" class="mywebapp.java.main.presentation.utilisateur.action.ModifierCandidatAction">
+		<result name="SUCCESS" type="chain">RedirigerMenu2Action</result>
 		</action>
 	</package>
 

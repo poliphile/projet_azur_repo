@@ -79,5 +79,34 @@ public class UtilisateurService {
 
 		return utilisateurDTO;
 	}
-}
 
+	public UtilisateurDO utilisateurDTOtoDO(final UtilisateurDTO utilisateurDTO) {
+		final UtilisateurDO utilisateurDO = new UtilisateurDO();
+		if (utilisateurDO.getId() != 0) {
+			utilisateurDO.setId(utilisateurDTO.getId());
+
+		}
+		utilisateurDO.setLogin(utilisateurDTO.getLogin());
+		utilisateurDO.setNom(utilisateurDTO.getNom());
+		utilisateurDO.setPrenom(utilisateurDTO.getPrenom());
+		utilisateurDO.setPassword(utilisateurDTO.getPassword());
+		utilisateurDO.setDateNaiss(utilisateurDTO.getDateNaiss());
+		return utilisateurDO;
+
+	}
+
+	public String ajouterUtilisateur(final UtilisateurDTO utilisateurDTO) {
+		utilisateurDAO.ajouterUtilisateur(utilisateurDTOtoDO(utilisateurDTO));
+		return "SUCCESS";
+	}
+
+	public UtilisateurDTO rechercherCandidat(final String nom,
+			final String prenom, final Date dateNaissance) {
+		return utilisateurDOtoDTO(utilisateurDAO.rechercherCandidat(nom,
+				prenom, dateNaissance));
+	}
+
+	public void modifierCandidat(final UtilisateurDTO utilisateur) {
+		utilisateurDAO.modifierUtilisateur(utilisateurDTOtoDO(utilisateur));
+	}
+}

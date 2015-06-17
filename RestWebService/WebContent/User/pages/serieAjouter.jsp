@@ -13,7 +13,7 @@
 
  <body >
   <div id="sessionTimer" style="margin-left: 30%;margin-top: 20%;"><h1>La série est Ajoutée<h1>
-  <s:form action="RedirigerMenuAction" name="formulaire" >
+  <s:form action="RedirigerMenu2Action" name="formulaire" >
   <s:submit id="submitButton" value="Menu"/>
   </s:form>
   </div>
